@@ -5,6 +5,7 @@ GhibliQL is a [GraphQL](http://graphql.org/) wrapper to the [Studio Ghibli REST 
 ## Usage
 
 First, you'll need a GraphQL client to query GhibliQL, like [GraphQL IDE](https://github.com/redound/graphql-ide)
+Configure your client to use the endpoint https://ghibliql.herokuapp.com
 
 Then, you'll be able to explore the API using "easy-to-understand" GraphQL query.
 For example, if I want the full list of films title, director, and characters name:
