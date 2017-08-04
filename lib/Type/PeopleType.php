@@ -1,0 +1,95 @@
+<?php
+
+namespace GhibliQL\Type;
+
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
+use GhibliQL\Types;
+use GhibliQL\Data\DataSource;
+
+class PeopleType extends ObjectType
+{
+    public function __construct()
+    {
+        $config = [
+            'name' => 'People',
+            'description' => 'The People endpoint returns information about all of the Studio Ghibli people. This broadly includes all Ghibli characters, human and non-.',
+            'fields' => function() {
+                return [
+                    'id' => [
+                        'type' => Type::nonNull(Type::string()),
+                        'description' => 'Unique identifier representing a specific person'
+                    ],
+                    'name' => [
+                        'type' => Type::string(),
+                        'description' => 'Name of the person'
+                    ],
+                    'gender' => [
+                        'type' => Type::string(),
+                        'description' => 'Gender of the person'
+                    ],
+                    'age' => [
+                        'type' => Type::string(),
+                        'description' => 'Age, if known, of the person'
+                    ],
+                    'eye_color' => [
+                        'type' => Type::string(),
+                        'description' => 'Eye color of the person'
+                    ],
+                    'hair_color' => [
+                        'type' => Type::string(),
+                        'description' => 'Hair color of the person'
+                    ],
+                    'films' => [
+                        'type' => Type::listOf(Types::film()),
+                        'description' => 'Array of films the person appears in'
+                    ],
+                    'species' => [
+                        'type' => Types::specie(),
+                        'description' => 'Species the person belongs to'
+                    ],
+                    'url' => [
+                        'type' => Type::string(),
+                        'description' => 'Unique url of the person'
+                    ]
+                ];
+            },
+            'interfaces' => [
+            ],
+            'resolveField' => function($value, $args, $context, ResolveInfo $info) {
+                if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
+                    return $this->{$info->fieldName}($value, $args, $context, $info);
+                } else {
+                    return $value->{$info->fieldName};
+                }
+            }
+        ];
+
+        parent::__construct($config);
+    }
+
+    public function films($value, $args, $context, ResolveInfo $info)
+    {
+        $films = [];
+
+        if (property_exists($value, $info->fieldName)) {
+            foreach ($value->{$info->fieldName} as $filmUrl) {
+                $filmId = substr($filmUrl, strrpos($filmUrl, '/')+1);
+                $films[$filmId] = DataSource::findFilm($filmId);
+            }
+        }
+
+        return $films;
+    }
+
+    public function species($value, $args, $context, ResolveInfo $info)
+    {
+        if (property_exists($value, $info->fieldName)) {
+            $specieId = substr($value->{$info->fieldName}, strrpos($value->{$info->fieldName}, '/')+1);
+            return DataSource::findSpecie($specieId);
+        }
+
+        return null;
+    }
+}

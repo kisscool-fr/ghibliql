@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "GhibliQL\\": "lib/"
+        }
+    },
+    "require": {
+        "webonyx/graphql-php": "^0.9",
+        "curl/curl": "^1.6"
+    }
+}
