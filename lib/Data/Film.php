@@ -1,7 +1,7 @@
 <?php
 namespace GhibliQL\Data;
 
-use GraphQL\Utils;
+use GraphQL\Utils\Utils;
 
 class Film
 {

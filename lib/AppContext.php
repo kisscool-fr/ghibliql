@@ -1,9 +1,6 @@
 <?php
 namespace GhibliQL;
 
-use GhibliQL\DataSource;
-use GraphQL\Utils;
-
 /**
  * Class AppContext
  * Instance available in all GraphQL resolvers as 3rd argument

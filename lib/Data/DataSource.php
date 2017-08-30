@@ -15,6 +15,7 @@ use Curl\Curl;
 class DataSource
 {
     private static $curl = null;
+    private static $cache = null;
 
     private static $films = null;
     private static $peoples = null;
@@ -27,6 +28,11 @@ class DataSource
      */
     public static function init()
     {
+        $cacheDir = __DIR__ . '/../../cache/data';
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0777, true);
+        }
+        self::$cache = new \Doctrine\Common\Cache\FilesystemCache(realpath($cacheDir));
     }
 
     public static function findFilm($id)
@@ -244,12 +250,20 @@ class DataSource
             self::$curl->setOpt(CURLOPT_RETURNTRANSFER, true);
         }
 
-        self::$curl->get($url);
+        $cacheKey = hash('sha1', $url . '|' . json_encode($args));
+        $data = self::$cache->fetch($cacheKey);
 
-        if (self::$curl->error) {
-            throw new \Exception('Error ' . self::$curl->error_code . ' : ' . self::$curl->error_message . ' (' . $url . ', args:'.json_encode($args).')');
-        } else {
-            return json_decode(self::$curl->response, true);
+        if (false === $data) {
+            self::$curl->get($url, $args);
+
+            if (self::$curl->error) {
+                throw new \Exception('Error ' . self::$curl->error_code . ' : ' . self::$curl->error_message . ' (' . $url . ', args:'.json_encode($args).')');
+            } else {
+                $data = self::$curl->response;
+                self::$cache->save($cacheKey, $data, 3600);
+            }
         }
+
+        return json_decode($data, true);  
     }
 }
