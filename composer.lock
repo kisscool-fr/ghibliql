@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "feeb782c504f8fb8a75b48df4736d948",
+    "content-hash": "3c2c0050f62323f6ead935efacf9cd22",
     "packages": [
         {
             "name": "curl/curl",
@@ -137,16 +137,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v0.10.2",
+            "version": "v0.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "7cc863df37b2270ec2b57cb9d322da064d832a59"
+                "reference": "b17b1c33366d07877feb4299f207a420fbfe53b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/7cc863df37b2270ec2b57cb9d322da064d832a59",
-                "reference": "7cc863df37b2270ec2b57cb9d322da064d832a59",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/b17b1c33366d07877feb4299f207a420fbfe53b5",
+                "reference": "b17b1c33366d07877feb4299f207a420fbfe53b5",
                 "shasum": ""
             },
             "require": {
@@ -180,7 +180,7 @@
                 "api",
                 "graphql"
             ],
-            "time": "2017-08-30T16:33:58+00:00"
+            "time": "2017-10-13T17:45:55+00:00"
         }
     ],
     "packages-dev": [],
