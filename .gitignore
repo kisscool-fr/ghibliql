@@ -1,4 +1,3 @@
-cache/
 docker-compose.yml
 docker/
 vendor/
