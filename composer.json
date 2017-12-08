@@ -5,7 +5,7 @@
         }
     },
     "require": {
-        "php": "~7.1",
+        "php": "^7.1",
         "webonyx/graphql-php": "^0.11",
         "curl/curl": "^1.8",
         "doctrine/cache": "^1.7",
