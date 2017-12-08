@@ -137,16 +137,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v0.11.2",
+            "version": "v0.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "b17b1c33366d07877feb4299f207a420fbfe53b5"
+                "reference": "3536280fac093cd482c439d4cf361ff60d3e47e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/b17b1c33366d07877feb4299f207a420fbfe53b5",
-                "reference": "b17b1c33366d07877feb4299f207a420fbfe53b5",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/3536280fac093cd482c439d4cf361ff60d3e47e6",
+                "reference": "3536280fac093cd482c439d4cf361ff60d3e47e6",
                 "shasum": ""
             },
             "require": {
@@ -180,7 +180,7 @@
                 "api",
                 "graphql"
             ],
-            "time": "2017-10-13T17:45:55+00:00"
+            "time": "2017-11-28T13:27:06+00:00"
         }
     ],
     "packages-dev": [],
