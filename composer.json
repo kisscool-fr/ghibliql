@@ -15,9 +15,9 @@
     },
     "require": {
         "php": "^7.1",
-        "webonyx/graphql-php": "^0.12",
-        "curl/curl": "^1.9",
-        "doctrine/cache": "^1.7",
+        "webonyx/graphql-php": "^0.13",
+        "curl/curl": "^2.2",
+        "doctrine/cache": "^1.8",
         "predis/predis": "^1.1"
     },
     "require-dev": {
