@@ -151,7 +151,7 @@ class DataSource
 
     public static function getFilms()
     {
-        if (count(self::$films) == 0 ) {
+        if (is_null(self::$films) || count(self::$films) == 0) {
             self::$films = [];
 
             $films = self::api('https://ghibliapi.herokuapp.com/films');
@@ -168,7 +168,7 @@ class DataSource
 
     public static function getPeoples()
     {
-        if (count(self::$peoples) == 0 ) {
+        if (is_null(self::$peoples) || count(self::$peoples) == 0) {
             self::$peoples = [];
 
             $peoples = self::api('https://ghibliapi.herokuapp.com/people');
@@ -185,7 +185,7 @@ class DataSource
 
     public static function getSpecies()
     {
-        if (count(self::$species) == 0 ) {
+        if (is_null(self::$species) || count(self::$species) == 0) {
             self::$species = [];
 
             $species = self::api('https://ghibliapi.herokuapp.com/species');
@@ -202,7 +202,7 @@ class DataSource
 
     public static function getLocations()
     {
-        if (count(self::$locations) == 0 ) {
+        if (is_null(self::$locations) || count(self::$locations) == 0) {
             self::$locations = [];
 
             $locations = self::api('https://ghibliapi.herokuapp.com/locations');
@@ -223,7 +223,7 @@ class DataSource
 
     public static function getVehicles()
     {
-        if (count(self::$vehicles) == 0 ) {
+        if (is_null(self::$vehicles) || count(self::$vehicles) == 0) {
             self::$vehicles = [];
 
             $vehicles = self::api('https://ghibliapi.herokuapp.com/vehicles');
