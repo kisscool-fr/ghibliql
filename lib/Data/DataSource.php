@@ -238,10 +238,6 @@ class DataSource
         return self::$vehicles;
     }
 
-
-    /**
-     * @todo Smart cache
-     */
     private static function api($url, $args=null)
     {
         if (is_null(self::$curl)) {

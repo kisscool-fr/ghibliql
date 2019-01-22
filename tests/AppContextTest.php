@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
-use \GhibliQL\AppContext;
+use GhibliQL\AppContext;
 
 final class AppContextTest extends TestCase
 {
