@@ -1,3 +1,5 @@
-docker-compose.yml
-docker/
+conf/
 vendor/
+docker-compose.yml
+Dockerfile
+.php_cs.cache
