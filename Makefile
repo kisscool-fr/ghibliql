@@ -7,10 +7,11 @@ ROOT = /var/www/ghibliql
 COMPOSER = composer
 PHPUNIT = ./vendor/bin/phpunit
 CSFIXER = ./vendor/bin/php-cs-fixer
+STAN = ./vendor/bin/phpstan
 
 .PHONY: run
 run:
-	$(COMPOSE) up $(DOCKER_HTTP)
+	$(COMPOSE) up
 
 build:
 	$(COMPOSE) rm -vsf
@@ -29,8 +30,11 @@ prod:
 jumpin:
 	$(COMPOSE) run $(DOCKER_APP) bash
 
+stan: dev
+	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(STAN) analyze $(FILE) --level 7"
+
 style: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(CSFIXER) fix lib public"
+	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(CSFIXER) fix $(FILE)"
 
 test: dev
 	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(PHPUNIT) --bootstrap vendor/autoload.php --testdox tests"
