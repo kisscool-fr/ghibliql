@@ -16,9 +16,9 @@
     "require": {
         "php": "^7.1",
         "webonyx/graphql-php": "^0.13",
-        "curl/curl": "^2.2",
         "doctrine/cache": "^1.8",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

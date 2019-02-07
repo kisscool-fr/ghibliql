@@ -4,17 +4,15 @@ namespace GhibliQL\Data;
 /**
  * Class DataSource
  *
- * This is just a simple in-memory data holder for the sake of example.
- * Data layer for real app may use Doctrine or query the database directly (e.g. in CQRS style)
- *
- * @package GraphQL\Examples\Blog
+ * Data retrieval class
  */
 
-use Curl\Curl;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class DataSource
 {
-    private static $curl = null;
+    private static $client = null;
     private static $cache = null;
 
     private static $films = null;
@@ -35,7 +33,7 @@ class DataSource
         }
     }
 
-    public static function findFilm($id)
+    public static function findFilm(string $id)
     {
         if (is_null(self::$films)) {
             self::getFilms();
@@ -44,7 +42,7 @@ class DataSource
         return isset(self::$films[$id]) ? self::$films[$id] : null;
     }
 
-    public static function findPeople($id)
+    public static function findPeople(string $id)
     {
         if (is_null(self::$peoples)) {
             self::getPeoples();
@@ -53,7 +51,7 @@ class DataSource
         return isset(self::$peoples[$id]) ? self::$peoples[$id] : null;
     }
 
-    public static function findPeoplesForFilm($film_id)
+    public static function findPeoplesForFilm(string $film_id): array
     {
         if (is_null(self::$peoples)) {
             self::getPeoples();
@@ -65,7 +63,7 @@ class DataSource
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
-            if (count(array_filter($data->films, function($url) use ($film_id) {
+            if (count(array_filter($data->films, function ($url) use ($film_id) {
                 $id = substr($url, strrpos($url, '/')+1);
                 return ($id == $film_id);
             })) > 0) {
@@ -76,7 +74,7 @@ class DataSource
         return $peoples;
     }
 
-    public static function findSpecie($id)
+    public static function findSpecie(string $id)
     {
         if (is_null(self::$species)) {
             self::getSpecies();
@@ -85,7 +83,7 @@ class DataSource
         return isset(self::$species[$id]) ? self::$species[$id] : null;
     }
 
-    public static function findLocation($id)
+    public static function findLocation(string $id)
     {
         if (is_null(self::$locations)) {
             self::getLocations();
@@ -94,7 +92,7 @@ class DataSource
         return isset(self::$locations[$id]) ? self::$locations[$id] : null;
     }
 
-    public static function findLocationsForFilm($film_id)
+    public static function findLocationsForFilm(string $film_id): array
     {
         if (is_null(self::$locations)) {
             self::getLocations();
@@ -106,7 +104,7 @@ class DataSource
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
-            if (count(array_filter($data->films, function($url) use ($film_id) {
+            if (count(array_filter($data->films, function ($url) use ($film_id) {
                 $id = substr($url, strrpos($url, '/')+1);
                 return ($id == $film_id);
             })) > 0) {
@@ -117,7 +115,7 @@ class DataSource
         return $locations;
     }
 
-    public static function findVehicle($id)
+    public static function findVehicle(string $id)
     {
         if (is_null(self::$vehicles)) {
             self::getVehicles();
@@ -126,7 +124,7 @@ class DataSource
         return isset(self::$vehicles[$id]) ? self::$vehicles[$id] : null;
     }
 
-    public static function findVehiclesForFilm($film_id)
+    public static function findVehiclesForFilm(string $film_id): array
     {
         if (is_null(self::$vehicles)) {
             self::getVehicles();
@@ -138,7 +136,7 @@ class DataSource
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
-            if (count(array_filter($data->films, function($url) use ($film_id) {
+            if (count(array_filter($data->films, function ($url) use ($film_id) {
                 $id = substr($url, strrpos($url, '/')+1);
                 return ($id == $film_id);
             })) > 0) {
@@ -149,12 +147,12 @@ class DataSource
         return $vehicles;
     }
 
-    public static function getFilms()
+    public static function getFilms(): array
     {
         if (is_null(self::$films) || count(self::$films) == 0) {
             self::$films = [];
 
-            $films = self::api('https://ghibliapi.herokuapp.com/films');
+            $films = self::api('/films');
 
             foreach ($films as $film) {
                 self::$films[$film['id']] = new Film(
@@ -166,12 +164,12 @@ class DataSource
         return self::$films;
     }
 
-    public static function getPeoples()
+    public static function getPeoples(): array
     {
         if (is_null(self::$peoples) || count(self::$peoples) == 0) {
             self::$peoples = [];
 
-            $peoples = self::api('https://ghibliapi.herokuapp.com/people');
+            $peoples = self::api('/people');
 
             foreach ($peoples as $people) {
                 self::$peoples[$people['id']] = new People(
@@ -183,12 +181,12 @@ class DataSource
         return self::$peoples;
     }
 
-    public static function getSpecies()
+    public static function getSpecies(): array
     {
         if (is_null(self::$species) || count(self::$species) == 0) {
             self::$species = [];
 
-            $species = self::api('https://ghibliapi.herokuapp.com/species');
+            $species = self::api('/species');
 
             foreach ($species as $specie) {
                 self::$species[$specie['id']] = new Specie(
@@ -200,12 +198,12 @@ class DataSource
         return self::$species;
     }
 
-    public static function getLocations()
+    public static function getLocations(): array
     {
         if (is_null(self::$locations) || count(self::$locations) == 0) {
             self::$locations = [];
 
-            $locations = self::api('https://ghibliapi.herokuapp.com/locations');
+            $locations = self::api('/locations');
 
             foreach ($locations as $location) {
                 // url should be string, not array
@@ -221,12 +219,12 @@ class DataSource
         return self::$locations;
     }
 
-    public static function getVehicles()
+    public static function getVehicles(): array
     {
         if (is_null(self::$vehicles) || count(self::$vehicles) == 0) {
             self::$vehicles = [];
 
-            $vehicles = self::api('https://ghibliapi.herokuapp.com/vehicles');
+            $vehicles = self::api('/vehicles');
 
             foreach ($vehicles as $vehicle) {
                 self::$vehicles[$vehicle['id']] = new Vehicle(
@@ -238,31 +236,37 @@ class DataSource
         return self::$vehicles;
     }
 
-    private static function api($url, $args=null)
+    private static function api(string $url, array $args=null): array
     {
-        if (is_null(self::$curl)) {
-            self::$curl = new Curl();
-            self::$curl->setOpt(CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            self::$curl->setOpt(CURLOPT_RETURNTRANSFER, true);
+        if (is_null(self::$client)) {
+            self::$client = new Client([
+                'base_uri' => 'https://ghibliapi.herokuapp.com',
+                'headers' => ['Content-Type' => 'application/json']
+            ]);
+        }
+
+        if (!is_array($args)) {
+            $args = [];
         }
 
         $cacheKey = hash('sha1', $url . '|' . json_encode($args));
         $data = self::$cache ? self::$cache->fetch($cacheKey) : false;
 
         if (false === $data) {
-            self::$curl->get($url, $args);
-
-            if (self::$curl->error) {
-                throw new \Exception('Error ' . self::$curl->error_code . ' : ' . self::$curl->error_message . ' (' . $url . ', args:'.json_encode($args).')');
-            } else {
-                $data = self::$curl->response;
+            try {
+                $response = self::$client->request('GET', $url, $args);
+                $data = $response->getBody()->getContents();
 
                 if (self::$cache) {
                     self::$cache->save($cacheKey, $data, 3600);
                 }
+            } catch (RequestException $e) {
+                if ($e->hasResponse()) {
+                    error_log($e->getResponse()->getStatusCode() . ' ' . $e->getResponse()->getReasonPhrase());
+                }
             }
         }
 
-        return json_decode($data, true);  
+        return json_decode($data, true);
     }
 }
