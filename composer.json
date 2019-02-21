@@ -15,12 +15,12 @@
     },
     "config": {
         "platform": {
-            "ext-sqreen": "1.10.0"
+            "ext-sqreen": "1.13.1"
         }
     },
     "require": {
-        "php": "^7.1",
-        "ext-sqreen": "^1.10",
+        "php": "^7.3",
+        "ext-sqreen": "^1.13",
         "webonyx/graphql-php": "^0.13",
         "doctrine/cache": "^1.8",
         "predis/predis": "^1.1",
@@ -30,6 +30,6 @@
         "roave/security-advisories": "dev-master",
         "phpunit/phpunit": "^7.5",
         "friendsofphp/php-cs-fixer": "^2.14",
-        "phpstan/phpstan": "^0.11.1"
+        "phpstan/phpstan": "^0.11.2"
     }
 }
