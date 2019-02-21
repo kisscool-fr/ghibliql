@@ -31,13 +31,13 @@ jumpin:
 	$(COMPOSE) run $(DOCKER_APP) bash
 
 stan: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(STAN) analyze $(FILE) --level 7"
+	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(STAN) analyze lib --level=max"
 
 style: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(CSFIXER) fix $(FILE)"
+	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(CSFIXER) fix lib --dry-run --diff-format=udiff --diff"
 
 test: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(PHPUNIT) --bootstrap vendor/autoload.php --testdox tests"
+	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(PHPUNIT)"
 
 down:
 	$(COMPOSE) down --volumes

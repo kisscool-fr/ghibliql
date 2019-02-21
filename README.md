@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/kisscool-fr/ghibliql.svg?branch=master)](https://travis-ci.org/kisscool-fr/ghibliql)
+
 # GhibliQL
 
 GhibliQL is a [GraphQL](http://graphql.org/) wrapper to the [Studio Ghibli REST API](https://ghibliapi.herokuapp.com)
