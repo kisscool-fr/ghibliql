@@ -1,11 +1,13 @@
 {
     "name": "kisscool-fr/ghibliql",
     "description": "GraphQL API wrapper to Ghibli REST API",
+    "type": "project",
     "homepage": "https://ghibliql.herokuapp.com",
     "authors": [
         {
             "name": "KisSCoOl",
-            "email": "kisscool@kisscool.net"
+            "email": "kisscool@kisscool.net",
+            "role": "Developer"
         }
     ],
     "autoload": {
@@ -28,8 +30,8 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
-        "phpunit/phpunit": "^7.5",
         "friendsofphp/php-cs-fixer": "^2.14",
-        "phpstan/phpstan": "^0.11.2"
+        "phpstan/phpstan": "^0.11.2",
+        "phpunit/phpunit": "^8.0"
     }
 }

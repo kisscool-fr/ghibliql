@@ -9,7 +9,7 @@ final class AppContextTest extends TestCase
 {
     protected static $appContext;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$appContext = new AppContext();
         self::$appContext->viewer = '';
@@ -17,17 +17,17 @@ final class AppContextTest extends TestCase
         self::$appContext->request = '';
     }
 
-    public function testRootUrl()
+    public function testRootUrl(): void
     {
         $this->assertSame('https://localhost:8080', self::$appContext->rootUrl);
     }
 
-     public function testViewer()
+     public function testViewer(): void
     {
         $this->assertSame('', self::$appContext->viewer);
     }
 
-    public function testRequest()
+    public function testRequest(): void
     {
         $this->assertSame('', self::$appContext->request);
     }

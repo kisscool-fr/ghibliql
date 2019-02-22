@@ -13,32 +13,32 @@ use GhibliQL\Type\QueryType;
 
 final class TypesTest extends TestCase
 {
-    public function testFilm()
+    public function testFilm(): void
     {
         $this->assertInstanceOf(FilmType::class, Types::film());
     }
 
-    public function testPeople()
+    public function testPeople(): void
     {
         $this->assertInstanceOf(PeopleType::class, Types::people());
     }
 
-    public function testSpecie()
+    public function testSpecie(): void
     {
         $this->assertInstanceOf(SpecieType::class, Types::specie());
     }
 
-    public function testLocation()
+    public function testLocation(): void
     {
         $this->assertInstanceOf(LocationType::class, Types::location());
     }
 
-    public function testVehicle()
+    public function testVehicle(): void
     {
         $this->assertInstanceOf(VehicleType::class, Types::vehicle());
     }
 
-    public function testQuery()
+    public function testQuery(): void
     {
         $this->assertInstanceOf(QueryType::class, Types::query());
     }
