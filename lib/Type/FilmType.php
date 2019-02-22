@@ -15,7 +15,7 @@ class FilmType extends ObjectType
         $config = [
             'name' => 'Film',
             'description' => 'The Films endpoint returns information about all of the Studio Ghibli films.',
-            'fields' => function() {
+            'fields' => function () {
                 return [
                     'id' => [
                         'type' => Type::nonNull(Type::string()),
@@ -69,7 +69,7 @@ class FilmType extends ObjectType
             },
             'interfaces' => [
             ],
-            'resolveField' => function($value, $args, $context, ResolveInfo $info) {
+            'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
                 if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
                 } else {
@@ -92,7 +92,7 @@ class FilmType extends ObjectType
                     $peoples = DataSource::findPeoplesForFilm($value->id);
                     break;
                 } else {
-                    $peoples[$id] = DataSource::findPeople($id);    
+                    $peoples[$id] = DataSource::findPeople($id);
                 }
             }
         }
@@ -125,7 +125,7 @@ class FilmType extends ObjectType
                     $locations = DataSource::findLocationsForFilm($value->id);
                     break;
                 } else {
-                    $locations[$id] = DataSource::findLocation($id);    
+                    $locations[$id] = DataSource::findLocation($id);
                 }
             }
         }
@@ -144,7 +144,7 @@ class FilmType extends ObjectType
                     $vehicles = DataSource::findVehiclesForFilm($value->id);
                     break;
                 } else {
-                    $vehicles[$id] = DataSource::findVehicle($id);    
+                    $vehicles[$id] = DataSource::findVehicle($id);
                 }
             }
         }

@@ -15,7 +15,7 @@ class PeopleType extends ObjectType
         $config = [
             'name' => 'People',
             'description' => 'The People endpoint returns information about all of the Studio Ghibli people. This broadly includes all Ghibli characters, human and non-.',
-            'fields' => function() {
+            'fields' => function () {
                 return [
                     'id' => [
                         'type' => Type::nonNull(Type::string()),
@@ -57,7 +57,7 @@ class PeopleType extends ObjectType
             },
             'interfaces' => [
             ],
-            'resolveField' => function($value, $args, $context, ResolveInfo $info) {
+            'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
                 if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
                 } else {

@@ -15,7 +15,7 @@ class VehicleType extends ObjectType
         $config = [
             'name' => 'Vehicle',
             'description' => 'The Vehicles endpoint returns information about all of the Studio Ghibli vechiles. This includes cars, ships, and planes.',
-            'fields' => function() {
+            'fields' => function () {
                 return [
                     'id' => [
                         'type' => Type::nonNull(Type::string()),
@@ -53,7 +53,7 @@ class VehicleType extends ObjectType
             },
             'interfaces' => [
             ],
-            'resolveField' => function($value, $args, $context, ResolveInfo $info) {
+            'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
                 if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
                 } else {

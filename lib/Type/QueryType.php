@@ -71,7 +71,7 @@ class QueryType extends ObjectType
                     'description' => 'Returns all available vehicles',
                 ]
             ],
-            'resolveField' => function($val, $args, $context, ResolveInfo $info) {
+            'resolveField' => function ($val, $args, $context, ResolveInfo $info) {
                 return $this->{$info->fieldName}($val, $args, $context, $info);
             }
         ];
