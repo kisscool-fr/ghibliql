@@ -17,12 +17,12 @@
     },
     "config": {
         "platform": {
-            "ext-sqreen": "1.13.1"
+            "ext-sqreen": "1.14.0"
         }
     },
     "require": {
         "php": "^7.3",
-        "ext-sqreen": "^1.13",
+        "ext-sqreen": "^1.14.0",
         "webonyx/graphql-php": "^0.13",
         "doctrine/cache": "^1.8",
         "predis/predis": "^1.1",
