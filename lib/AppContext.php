@@ -15,12 +15,12 @@ class AppContext
     public $rootUrl;
 
     /**
-     * @var User
+     * @var string
      */
     public $viewer;
 
     /**
-     * @var \mixed
+     * @var array
      */
     public $request;
 }

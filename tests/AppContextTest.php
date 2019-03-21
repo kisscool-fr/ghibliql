@@ -14,7 +14,7 @@ final class AppContextTest extends TestCase
         self::$appContext = new AppContext();
         self::$appContext->viewer = '';
         self::$appContext->rootUrl = 'https://localhost:8080';
-        self::$appContext->request = '';
+        self::$appContext->request = $_REQUEST;
     }
 
     public function testRootUrl(): void
@@ -29,6 +29,6 @@ final class AppContextTest extends TestCase
 
     public function testRequest(): void
     {
-        $this->assertSame('', self::$appContext->request);
+        $this->assertIsArray(self::$appContext->request);
     }
 }

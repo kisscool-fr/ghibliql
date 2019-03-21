@@ -155,8 +155,9 @@ class DataSource
             $films = self::api('/films');
 
             foreach ($films as $film) {
+                $datas = array_combine(array_keys($film), array_values($film));
                 self::$films[$film['id']] = new Film(
-                    array_combine(array_keys($film), array_values($film))
+                    is_array($datas) ? $datas : []
                 );
             }
         }
@@ -172,8 +173,9 @@ class DataSource
             $peoples = self::api('/people');
 
             foreach ($peoples as $people) {
+                $datas = array_combine(array_keys($people), array_values($people));
                 self::$peoples[$people['id']] = new People(
-                    array_combine(array_keys($people), array_values($people))
+                    is_array($datas) ? $datas : []
                 );
             }
         }
@@ -189,8 +191,9 @@ class DataSource
             $species = self::api('/species');
 
             foreach ($species as $specie) {
+                $datas = array_combine(array_keys($specie), array_values($specie));
                 self::$species[$specie['id']] = new Specie(
-                    array_combine(array_keys($specie), array_values($specie))
+                    is_array($datas) ? $datas : []
                 );
             }
         }
@@ -210,8 +213,9 @@ class DataSource
                 if (is_array($location['url'])) {
                     $location['url'] = array_shift($location['url']);
                 }
+                $datas = array_combine(array_keys($location), array_values($location));
                 self::$locations[$location['id']] = new Location(
-                    array_combine(array_keys($location), array_values($location))
+                    is_array($datas) ? $datas : []
                 );
             }
         }
@@ -227,8 +231,9 @@ class DataSource
             $vehicles = self::api('/vehicles');
 
             foreach ($vehicles as $vehicle) {
+                $datas = array_combine(array_keys($vehicle), array_values($vehicle));
                 self::$vehicles[$vehicle['id']] = new Vehicle(
-                    array_combine(array_keys($vehicle), array_values($vehicle))
+                    is_array($datas) ? $datas : []
                 );
             }
         }
