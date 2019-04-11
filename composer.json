@@ -2,6 +2,7 @@
     "name": "kisscool-fr/ghibliql",
     "description": "GraphQL API wrapper to Ghibli REST API",
     "type": "project",
+    "license": "proprietary",
     "homepage": "https://ghibliql.herokuapp.com",
     "authors": [
         {
@@ -15,18 +16,26 @@
             "GhibliQL\\": "lib/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "GhibliQL\\": "tests/"
+        }
+    },
     "config": {
         "platform": {
+            "php": "7.3",
             "ext-sqreen": "1.14.0"
-        }
+        },
+        "sort-packages": true
     },
     "require": {
         "php": "^7.3",
         "ext-sqreen": "^1.14.0",
-        "webonyx/graphql-php": "^0.13",
         "doctrine/cache": "^1.8",
+        "guzzlehttp/guzzle": "^6.3",
+        "hirak/prestissimo": "^0.3.8",
         "predis/predis": "^1.1",
-        "guzzlehttp/guzzle": "^6.3"
+        "webonyx/graphql-php": "^0.13"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
