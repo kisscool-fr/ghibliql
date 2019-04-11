@@ -25,7 +25,7 @@ dev:
 	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(COMPOSER) install --optimize-autoloader"
 
 prod:
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(COMPOSER) install --no-dev --optimize-autoloader"
+	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
 
 jumpin:
 	$(COMPOSE) run $(DOCKER_APP) bash
