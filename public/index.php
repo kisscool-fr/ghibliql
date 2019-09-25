@@ -31,7 +31,7 @@ try {
     // Prepare context that will be available in all field resolvers (as 3rd argument):
     $appContext = new AppContext();
     $appContext->viewer = '';
-    $appContext->rootUrl = 'https://localhost:8080';
+    $appContext->rootUrl = $_SERVER['REQUEST_URI'];
     $appContext->request = $_REQUEST;
 
     // Parse incoming query and variables
@@ -41,7 +41,7 @@ try {
     }
 
     if (is_null($data)) {
-        $data = $_REQUEST;
+        $data = $appContext->request;
     }
 
     // GraphQL schema to be passed to query executor:
