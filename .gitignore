@@ -5,3 +5,4 @@ Dockerfile
 .php_cs.cache
 .phpunit.result.cache
 .DS_Store
+*.code-workspace
