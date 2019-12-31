@@ -1,8 +1,18 @@
+# Editor
+*.code-workspace
+.vscode
+
+# Configuration
 conf/
+
+# Composer
 vendor/
+
+# Docker
 docker-compose.yml
 Dockerfile
+
+# Temporary
 .php_cs.cache
 .phpunit.result.cache
 .DS_Store
-*.code-workspace
