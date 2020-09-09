@@ -24,13 +24,13 @@
     "config": {
         "platform": {
             "php": "7.4.9",
-            "ext-sqreen": "1.20.1"
+            "ext-sqreen": "1.21.0"
         },
         "sort-packages": true
     },
     "require": {
         "php": "^7.4",
-        "ext-sqreen": "^1.20",
+        "ext-sqreen": "^1.21",
         "doctrine/cache": "^1.10",
         "guzzlehttp/guzzle": "^6.5",
         "hirak/prestissimo": "^0.3",
