@@ -5,18 +5,18 @@ use GraphQL\Utils\Utils;
 
 class Film
 {
-    public $id;
-    public $title;
-    public $description;
-    public $director;
-    public $producer;
-    public $release_date;
-    public $rt_score;
-    public $people;
-    public $species;
-    public $locations;
-    public $vehicles;
-    public $url;
+    public string $id;
+    public string $title;
+    public string $description;
+    public string $director;
+    public string $producer;
+    public string $release_date;
+    public string $rt_score;
+    public array $people;
+    public array $species;
+    public array $locations;
+    public array $vehicles;
+    public string $url;
 
     public function __construct(array $data)
     {

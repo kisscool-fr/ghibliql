@@ -1,15 +1,14 @@
 language: php
 
-sudo: false
-
 php:
-  - 7.4
+  # - 7.4
+  - 8.0
 
 install:
   - composer install --no-interaction --prefer-source 
 
 script:
   - composer validate --no-check-all --strict
-  - ./vendor/bin/php-cs-fixer fix lib --dry-run
+  # - ./vendor/bin/php-cs-fixer fix lib --dry-run
   - ./vendor/bin/phpstan analyse --configuration=phpstan.neon
   - ./vendor/bin/phpunit

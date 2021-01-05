@@ -5,8 +5,10 @@ namespace GhibliQL\Type;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use GhibliQL\AppContext;
 use GhibliQL\Types;
 use GhibliQL\Data\DataSource;
+use GhibliQL\Data\Location;
 
 class LocationType extends ObjectType
 {
@@ -65,7 +67,7 @@ class LocationType extends ObjectType
         parent::__construct($config);
     }
 
-    public function residents($value, $args, $context, ResolveInfo $info)
+    public function residents(Location $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $residents = [];
 
@@ -79,7 +81,7 @@ class LocationType extends ObjectType
         return $residents;
     }
 
-    public function films($value, $args, $context, ResolveInfo $info)
+    public function films(Location $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $films = [];
 

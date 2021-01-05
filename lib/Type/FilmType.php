@@ -5,8 +5,10 @@ namespace GhibliQL\Type;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use GhibliQL\AppContext;
 use GhibliQL\Types;
 use GhibliQL\Data\DataSource;
+use GhibliQL\Data\Film;
 
 class FilmType extends ObjectType
 {
@@ -81,7 +83,7 @@ class FilmType extends ObjectType
         parent::__construct($config);
     }
 
-    public function people($value, $args, $context, ResolveInfo $info)
+    public function people(Film $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $peoples = [];
 
@@ -100,7 +102,7 @@ class FilmType extends ObjectType
         return $peoples;
     }
 
-    public function species($value, $args, $context, ResolveInfo $info)
+    public function species(Film $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $species = [];
 
@@ -114,7 +116,7 @@ class FilmType extends ObjectType
         return $species;
     }
 
-    public function locations($value, $args, $context, ResolveInfo $info)
+    public function locations(Film $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $locations = [];
 
@@ -133,7 +135,7 @@ class FilmType extends ObjectType
         return $locations;
     }
 
-    public function vehicles($value, $args, $context, ResolveInfo $info)
+    public function vehicles(Film $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $vehicles = [];
 

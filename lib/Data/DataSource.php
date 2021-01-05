@@ -6,29 +6,29 @@ namespace GhibliQL\Data;
  *
  * Data retrieval class
  */
-
+use Doctrine\Common\Cache\PredisCache;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 class DataSource
 {
-    private static $client = null;
-    private static $cache = null;
+    private static ?Client $client = null;
+    private static ?PredisCache $cache = null;
 
-    private static $films = null;
-    private static $peoples = null;
-    private static $species = null;
-    private static $locations = null;
-    private static $vehicles = null;
+    private static ?array $films = null;
+    private static ?array $peoples = null;
+    private static ?array $species = null;
+    private static ?array $locations = null;
+    private static ?array $vehicles = null;
 
     /**
      * @todo Smart init
      */
-    public static function init()
+    public static function init(): void
     {
         if (getenv('HEROKU_REDIS_AQUA_URL')) {
             try {
-                self::$cache = new \Doctrine\Common\Cache\PredisCache(
+                self::$cache = new PredisCache(
                     new \Predis\Client(getenv('HEROKU_REDIS_AQUA_URL'))
                 );
             } catch (\Predis\PredisException $e) {
@@ -36,7 +36,7 @@ class DataSource
         }
     }
 
-    public static function findFilm(string $id)
+    public static function findFilm(string $id): mixed
     {
         if (is_null(self::$films)) {
             self::getFilms();
@@ -45,7 +45,7 @@ class DataSource
         return isset(self::$films[$id]) ? self::$films[$id] : null;
     }
 
-    public static function findPeople(string $id)
+    public static function findPeople(string $id): mixed
     {
         if (is_null(self::$peoples)) {
             self::getPeoples();
@@ -62,7 +62,7 @@ class DataSource
 
         $peoples = [];
 
-        foreach (self::$peoples as $id => $data) {
+        foreach (self::$peoples as $id => $data) { // @phpstan-ignore-line
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
@@ -77,7 +77,7 @@ class DataSource
         return $peoples;
     }
 
-    public static function findSpecie(string $id)
+    public static function findSpecie(string $id): mixed
     {
         if (is_null(self::$species)) {
             self::getSpecies();
@@ -86,7 +86,7 @@ class DataSource
         return isset(self::$species[$id]) ? self::$species[$id] : null;
     }
 
-    public static function findLocation(string $id)
+    public static function findLocation(string $id): mixed
     {
         if (is_null(self::$locations)) {
             self::getLocations();
@@ -103,7 +103,7 @@ class DataSource
 
         $locations = [];
 
-        foreach (self::$locations as $id => $data) {
+        foreach (self::$locations as $id => $data) { // @phpstan-ignore-line
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
@@ -118,7 +118,7 @@ class DataSource
         return $locations;
     }
 
-    public static function findVehicle(string $id)
+    public static function findVehicle(string $id): mixed
     {
         if (is_null(self::$vehicles)) {
             self::getVehicles();
@@ -135,7 +135,7 @@ class DataSource
 
         $vehicles = [];
 
-        foreach (self::$vehicles as $id => $data) {
+        foreach (self::$vehicles as $id => $data) { // @phpstan-ignore-line
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
@@ -147,7 +147,7 @@ class DataSource
             }
         }
 
-        return $vehicles;
+        return $vehicles ?? [];
     }
 
     public static function getFilms(): array
@@ -159,13 +159,13 @@ class DataSource
 
             foreach ($films as $film) {
                 $datas = array_combine(array_keys($film), array_values($film));
-                self::$films[$film['id']] = new Film(
+                self::$films[$film['id']] = new Film( // @phpstan-ignore-next-line
                     is_array($datas) ? $datas : []
                 );
             }
         }
 
-        return self::$films;
+        return self::$films ?? [];
     }
 
     public static function getPeoples(): array
@@ -177,13 +177,13 @@ class DataSource
 
             foreach ($peoples as $people) {
                 $datas = array_combine(array_keys($people), array_values($people));
-                self::$peoples[$people['id']] = new People(
+                self::$peoples[$people['id']] = new People( // @phpstan-ignore-next-line
                     is_array($datas) ? $datas : []
                 );
             }
         }
 
-        return self::$peoples;
+        return self::$peoples ?? [];
     }
 
     public static function getSpecies(): array
@@ -195,13 +195,13 @@ class DataSource
 
             foreach ($species as $specie) {
                 $datas = array_combine(array_keys($specie), array_values($specie));
-                self::$species[$specie['id']] = new Specie(
+                self::$species[$specie['id']] = new Specie( // @phpstan-ignore-next-line
                     is_array($datas) ? $datas : []
                 );
             }
         }
 
-        return self::$species;
+        return self::$species ?? [];
     }
 
     public static function getLocations(): array
@@ -217,13 +217,13 @@ class DataSource
                     $location['url'] = array_shift($location['url']);
                 }
                 $datas = array_combine(array_keys($location), array_values($location));
-                self::$locations[$location['id']] = new Location(
+                self::$locations[$location['id']] = new Location( // @phpstan-ignore-next-line
                     is_array($datas) ? $datas : []
                 );
             }
         }
 
-        return self::$locations;
+        return self::$locations ?? [];
     }
 
     public static function getVehicles(): array
@@ -235,13 +235,13 @@ class DataSource
 
             foreach ($vehicles as $vehicle) {
                 $datas = array_combine(array_keys($vehicle), array_values($vehicle));
-                self::$vehicles[$vehicle['id']] = new Vehicle(
+                self::$vehicles[$vehicle['id']] = new Vehicle( // @phpstan-ignore-next-line
                     is_array($datas) ? $datas : []
                 );
             }
         }
 
-        return self::$vehicles;
+        return self::$vehicles ?? [];
     }
 
     private static function api(string $url, array $args=null): array
@@ -270,7 +270,7 @@ class DataSource
                 }
             } catch (RequestException $e) {
                 if ($e->hasResponse()) {
-                    error_log($e->getResponse()->getStatusCode() . ' ' . $e->getResponse()->getReasonPhrase());
+                    error_log($e->getResponse()->getStatusCode() . ' ' . $e->getResponse()->getReasonPhrase());  // @phpstan-ignore-line
                 }
             }
         }

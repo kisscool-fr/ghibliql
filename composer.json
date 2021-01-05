@@ -23,23 +23,23 @@
     },
     "config": {
         "platform": {
-            "php": "7.4.13",
+            "php": "8.0.0",
             "ext-sqreen": "1.23.0"
         },
         "sort-packages": true
     },
     "require": {
-        "php": "^7.4",
-        "ext-sqreen": "*",
+        "php": "^8.0",
+        "ext-sqreen": "^1.23",
         "doctrine/cache": "^1.10",
-        "guzzlehttp/guzzle": "^6.5",
+        "guzzlehttp/guzzle": "^7.2",
         "predis/predis": "^1.1",
-        "webonyx/graphql-php": "^14.1"
+        "webonyx/graphql-php": "^14.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "phpstan/phpstan": "^0.11",
-        "phpunit/phpunit": "^9.3",
+        "friendsofphp/php-cs-fixer": "^2.17",
+        "phpstan/phpstan": "^0.12",
+        "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-master"
     }
 }

@@ -18,7 +18,7 @@ ini_set('display_errors', 0);
 
 $debug = false;
 if (!empty($_GET['debug'])) {
-    set_error_handler(function($severity, $message, $file, $line) use (&$phpErrors) {
+    set_error_handler(function ($severity, $message, $file, $line) use (&$phpErrors) {
         throw new ErrorException($message, 0, $severity, $file, $line);
     });
     $debug = DebugFlag::INCLUDE_DEBUG_MESSAGE | DebugFlag::INCLUDE_TRACE;

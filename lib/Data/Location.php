@@ -5,14 +5,14 @@ use GraphQL\Utils\Utils;
 
 class Location
 {
-    public $id;
-    public $name;
-    public $climate;
-    public $terrain;
-    public $surface_water;
-    public $residents;
-    public $films;
-    public $url;
+    public string $id;
+    public string $name;
+    public string $climate;
+    public string $terrain;
+    public string $surface_water;
+    public array $residents;
+    public array $films;
+    public string $url;
 
     public function __construct(array $data)
     {

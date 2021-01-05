@@ -78,57 +78,57 @@ class QueryType extends ObjectType
         parent::__construct($config);
     }
 
-    public function film($rootValue, $args)
+    public function film(mixed $rootValue, array $args): mixed
     {
         return DataSource::findFilm($args['id']);
     }
 
-    public function films($rootValue, $args)
+    public function films(mixed $rootValue, array $args): array
     {
         return DataSource::getFilms();
     }
 
-    public function people($rootValue, $args)
+    public function people(mixed $rootValue, array $args): mixed
     {
         return DataSource::findPeople($args['id']);
     }
 
-    public function peoples($rootValue, $args)
+    public function peoples(mixed $rootValue, array $args): array
     {
         return DataSource::getPeoples();
     }
 
-    public function specie($rootValue, $args)
+    public function specie(mixed $rootValue, array $args): mixed
     {
         return DataSource::findSpecie($args['id']);
     }
 
-    public function species($rootValue, $args)
+    public function species(mixed $rootValue, array $args): array
     {
         return DataSource::getSpecies();
     }
 
-    public function location($rootValue, $args)
+    public function location(mixed $rootValue, array $args): mixed
     {
         return DataSource::findLocation($args['id']);
     }
 
-    public function locations($rootValue, $args)
+    public function locations(mixed $rootValue, array $args): array
     {
         return DataSource::getLocations();
     }
 
-    public function vehicle($rootValue, $args)
+    public function vehicle(mixed $rootValue, array $args): mixed
     {
         return DataSource::findVehicle($args['id']);
     }
 
-    public function vehicles($rootValue, $args)
+    public function vehicles(mixed $rootValue, array $args): array
     {
         return DataSource::getVehicles();
     }
 
-    public function deprecatedField()
+    public function deprecatedField(): string
     {
         return 'You can request deprecated field, but it is not displayed in auto-generated documentation by default.';
     }

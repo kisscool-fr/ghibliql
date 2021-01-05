@@ -5,14 +5,14 @@ use GraphQL\Utils\Utils;
 
 class Vehicle
 {
-    public $id;
-    public $name;
-    public $description;
-    public $vehicle_class;
-    public $length;
-    public $pilot;
-    public $films;
-    public $url;
+    public string $id;
+    public string $name;
+    public string $description;
+    public string $vehicle_class;
+    public string $length;
+    public mixed $pilot;
+    public mixed $films;
+    public string $url;
 
     public function __construct(array $data)
     {

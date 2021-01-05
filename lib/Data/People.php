@@ -5,15 +5,15 @@ use GraphQL\Utils\Utils;
 
 class People
 {
-    public $id;
-    public $name;
-    public $gender;
-    public $age;
-    public $eye_color;
-    public $hair_color;
-    public $films;
-    public $species;
-    public $url;
+    public string $id;
+    public string $name;
+    public string $gender;
+    public string $age;
+    public string $eye_color;
+    public string $hair_color;
+    public array $films;
+    public string $species;
+    public string $url;
 
     public function __construct(array $data)
     {

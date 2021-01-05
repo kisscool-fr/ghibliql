@@ -18,10 +18,10 @@ final class FilmTest extends TestCase
                     'producer' => 'StudioCanal',
                     'release_date' => '2009',
                     'rt_score' => '',
-                    'people' => '',
-                    'species' => '',
-                    'locations' => '',
-                    'vehicles' => '',
+                    'people' =>  [''],
+                    'species' => [''],
+                    'locations' => [''],
+                    'vehicles' => [''],
                     'url' => 'http://www.allocine.fr/film/fichefilm_gen_cfilm=116484.html',
                 ]
             ]
@@ -36,7 +36,11 @@ final class FilmTest extends TestCase
         $film = new Film($data);
 
         foreach ($data as $propertie => $value) {
-            $this->assertEquals($film->{$propertie}, $value, sprintf('`%s` don\'t match', $propertie));
+            $this->assertEquals(
+                $film->{$propertie},
+                $value,
+                sprintf('`%s` don\'t match', $propertie)
+            );
         }
     }
 }

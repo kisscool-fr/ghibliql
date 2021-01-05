@@ -5,14 +5,14 @@ use GraphQL\Utils\Utils;
 
 class Specie
 {
-    public $id;
-    public $name;
-    public $classification;
-    public $eye_colors;
-    public $hair_colors;
-    public $people;
-    public $films;
-    public $url;
+    public string $id;
+    public string $name;
+    public string $classification;
+    public string $eye_colors;
+    public string $hair_colors;
+    public array $people;
+    public array $films;
+    public string $url;
 
     public function __construct(array $data)
     {

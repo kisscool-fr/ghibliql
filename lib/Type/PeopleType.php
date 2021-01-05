@@ -5,8 +5,11 @@ namespace GhibliQL\Type;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use GhibliQL\AppContext;
 use GhibliQL\Types;
 use GhibliQL\Data\DataSource;
+use GhibliQL\Data\People;
+use GhibliQL\Data\Specie;
 
 class PeopleType extends ObjectType
 {
@@ -69,7 +72,7 @@ class PeopleType extends ObjectType
         parent::__construct($config);
     }
 
-    public function films($value, $args, $context, ResolveInfo $info)
+    public function films(People $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $films = [];
 
@@ -83,7 +86,7 @@ class PeopleType extends ObjectType
         return $films;
     }
 
-    public function species($value, $args, $context, ResolveInfo $info)
+    public function species(People $value, array $args, AppContext $context, ResolveInfo $info): mixed
     {
         if (property_exists($value, $info->fieldName)) {
             $specieId = substr($value->{$info->fieldName}, strrpos($value->{$info->fieldName}, '/')+1);

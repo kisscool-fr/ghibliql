@@ -5,8 +5,10 @@ namespace GhibliQL\Type;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use GhibliQL\AppContext;
 use GhibliQL\Types;
 use GhibliQL\Data\DataSource;
+use GhibliQL\Data\Specie;
 
 class SpecieType extends ObjectType
 {
@@ -65,7 +67,7 @@ class SpecieType extends ObjectType
         parent::__construct($config);
     }
 
-    public function films($value, $args, $context, ResolveInfo $info)
+    public function films(Specie $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $films = [];
 
@@ -79,7 +81,7 @@ class SpecieType extends ObjectType
         return $films;
     }
 
-    public function people($value, $args, $context, ResolveInfo $info)
+    public function people(Specie $value, array $args, AppContext $context, ResolveInfo $info): array
     {
         $peoples = [];
 
