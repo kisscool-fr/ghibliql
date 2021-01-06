@@ -2,15 +2,8 @@
 *.code-workspace
 .vscode
 
-# Configuration
-conf/
-
 # Composer
 vendor/
-
-# Docker
-docker-compose.yml
-Dockerfile
 
 # Temporary
 .php_cs.cache
