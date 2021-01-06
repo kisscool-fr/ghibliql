@@ -23,17 +23,16 @@
     },
     "config": {
         "platform": {
-            "php": "7.4.11",
-            "ext-sqreen": "1.21.0"
+            "php": "7.4.13",
+            "ext-sqreen": "1.23.0"
         },
         "sort-packages": true
     },
     "require": {
         "php": "^7.4",
-        "ext-sqreen": "^1.21",
+        "ext-sqreen": "*",
         "doctrine/cache": "^1.10",
         "guzzlehttp/guzzle": "^6.5",
-        "hirak/prestissimo": "^0.3",
         "predis/predis": "^1.1",
         "webonyx/graphql-php": "^14.1"
     },
