@@ -30,7 +30,7 @@
     },
     "require": {
         "php": "^8.0",
-        "ext-sqreen": "^1.23",
+        "ext-sqreen": "*",
         "doctrine/cache": "^1.10",
         "guzzlehttp/guzzle": "^7.2",
         "predis/predis": "^1.1",
