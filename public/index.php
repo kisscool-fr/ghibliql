@@ -54,7 +54,7 @@ try {
         $data['query'],
         null,
         $appContext,
-        (array) $data['variables']
+        array_key_exists('variables', $data) ? $data['variables'] : []
     );
     $output = $result->toArray($debug);
     $httpStatus = 200;
