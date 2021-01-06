@@ -19,7 +19,7 @@ services:
         ports:
             - 9000:9000/tcp
         environment:
-            - REDIS_URL=redis://redis:6379
+            - HEROKU_REDIS_AQUA_URL=redis://redis:6379
         volumes:
             - "./:/var/www/ghibliql"
             - "./conf/php.ini:/usr/local/etc/php/conf.d/php.ini:ro"

@@ -26,10 +26,13 @@ class DataSource
      */
     public static function init()
     {
-        if (getenv('REDIS_URL')) {
-            self::$cache = new \Doctrine\Common\Cache\PredisCache(
-                new \Predis\Client(getenv('REDIS_URL'))
-            );
+        if (getenv('HEROKU_REDIS_AQUA_URL')) {
+            try {
+                self::$cache = new \Doctrine\Common\Cache\PredisCache(
+                    new \Predis\Client(getenv('HEROKU_REDIS_AQUA_URL'))
+                );
+            } catch (\Predis\PredisException $e) {
+            }
         }
     }
 
