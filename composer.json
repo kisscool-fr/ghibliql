@@ -23,7 +23,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.0.0",
+            "php": "8.0.1",
             "ext-sqreen": "1.23.0"
         },
         "sort-packages": true
@@ -34,10 +34,10 @@
         "doctrine/cache": "^1.10",
         "guzzlehttp/guzzle": "^7.2",
         "predis/predis": "^1.1",
-        "webonyx/graphql-php": "^14.4"
+        "webonyx/graphql-php": "^14.5"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.17",
+        "friendsofphp/php-cs-fixer": "^2.18",
         "phpstan/phpstan": "^0.12",
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-master"
