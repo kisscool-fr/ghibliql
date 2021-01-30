@@ -27,7 +27,7 @@ services:
             - redis
 
     redis:
-        image: redis:6.0.9
+        image: redis:6.0.10
         restart: unless-stopped
         ports:
             - 6379:6379/tcp
