@@ -34,12 +34,12 @@
         "doctrine/cache": "^1.10",
         "guzzlehttp/guzzle": "^6.5",
         "predis/predis": "^1.1",
-        "webonyx/graphql-php": "^14.1"
+        "webonyx/graphql-php": "^14.5"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpstan/phpstan": "^0.11",
-        "phpunit/phpunit": "^9.3",
+        "phpunit/phpunit": "^9.4",
         "roave/security-advisories": "dev-master"
     }
 }
