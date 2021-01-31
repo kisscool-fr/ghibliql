@@ -2,6 +2,10 @@ parameters:
     level: max
     paths:
         - lib
+    checkMissingIterableValueType: false
     ignoreErrors:
-        - "#Cannot call method get(?:ReasonPhrase|StatusCode)() on Psr\\Http\\Message\\ResponseInterface|null.#"
+        - "#Cannot call method get(?:ReasonPhrase|StatusCode)#"
+        - "#has no typehint specified#"
+        - "#with no typehint specified#"
+        - "#has no return typehint specified#"
 
