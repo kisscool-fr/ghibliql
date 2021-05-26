@@ -39,7 +39,7 @@ docker-stop:
 	$(DOCKER_MACHINE) stop
 
 jumpin:
-	$(COMPOSE) run $(DOCKER_APP) bash
+	$(COMPOSE) run --service-ports $(DOCKER_APP) bash
 
 stan: dev
 	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(STAN) analyse --configuration=phpstan.neon"
