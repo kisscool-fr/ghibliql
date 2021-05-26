@@ -27,6 +27,14 @@ class FilmType extends ObjectType
                         'type' => Type::string(),
                         'description' => 'Title of the film'
                     ],
+                    'original_title' => [
+                        'type' => Type::string(),
+                        'description' => 'Original title of the film'
+                    ],
+                    'original_title_romanised' => [
+                        'type' => Type::string(),
+                        'description' => 'Orignal title in romanised form'
+                    ],
                     'description' => [
                         'type' => Type::string(),
                         'description' => 'Description of the film'
@@ -42,6 +50,10 @@ class FilmType extends ObjectType
                     'release_date' => [
                         'type' => Type::string(),
                         'description' => 'Release year of film'
+                    ],
+                    'running_time' => [
+                        'type' => Type::string(),
+                        'description' => 'Running time of the film in minutes'
                     ],
                     'rt_score' => [
                         'type' => Type::string(),
