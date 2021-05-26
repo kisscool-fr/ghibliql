@@ -23,7 +23,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.4.16",
+            "php": "7.4.19",
             "ext-sqreen": "1.23.0"
         },
         "sort-packages": true
@@ -31,10 +31,10 @@
     "require": {
         "php": "^7.4",
         "ext-sqreen": "*",
-        "doctrine/cache": "^1.10",
+        "doctrine/cache": "^1.11",
         "guzzlehttp/guzzle": "^7.3",
         "predis/predis": "^1.1",
-        "webonyx/graphql-php": "^14.5"
+        "webonyx/graphql-php": "^14.7"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.18",
