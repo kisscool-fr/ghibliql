@@ -1,6 +1,6 @@
 # -*- mode: makefile -*-
 
-COMPOSE = docker-compose
+COMPOSE = docker compose
 DOCKER_MACHINE = docker-machine
 DOCKER_HTTP = httpd
 DOCKER_APP = php
