@@ -44,7 +44,7 @@ class VehicleType extends ObjectType
                         'description' => 'Pilot of the vehicle'
                     ],
                     'films' => [
-                        'type' => Types::film(),
+                        'type' => Type::listOf(Types::film()),
                         'description' => 'Array of films the vehicle appears in'
                     ],
                     'url' => [
@@ -67,17 +67,18 @@ class VehicleType extends ObjectType
         parent::__construct($config);
     }
 
-    public function films(Vehicle $value, array $args, AppContext $context, ResolveInfo $info): mixed
+    public function films(Vehicle $value, array $args, AppContext $context, ResolveInfo $info): array
     {
-        $film = null;
+        $films = [];
 
         if (property_exists($value, $info->fieldName)) {
-            $filmUrl = $value->{$info->fieldName};
-            $filmId = substr($filmUrl, strrpos($filmUrl, '/')+1);
-            $film = DataSource::findFilm($filmId);
+            foreach ($value->{$info->fieldName} as $filmUrl) {
+                $filmId = substr($filmUrl, strrpos($filmUrl, '/')+1);
+                $films[$filmId] = DataSource::findFilm($filmId);
+            }
         }
 
-        return $film;
+        return $films;
     }
 
     public function pilot(Vehicle $value, array $args, AppContext $context, ResolveInfo $info): mixed
