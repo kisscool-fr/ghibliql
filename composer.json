@@ -23,7 +23,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.0.6",
+            "php": "8.0.10",
             "ext-sqreen": "1.24.2"
         },
         "sort-packages": true
@@ -31,7 +31,7 @@
     "require": {
         "php": "^8.0",
         "ext-sqreen": "*",
-        "doctrine/cache": "^1.11",
+        "doctrine/cache": "^1.12",
         "guzzlehttp/guzzle": "^7.3",
         "predis/predis": "^1.1",
         "webonyx/graphql-php": "^14.9"
