@@ -9,6 +9,6 @@ install:
 
 script:
   - composer validate --no-check-all --strict
-  # - ./vendor/bin/php-cs-fixer fix lib --dry-run
+  - ./vendor/bin/php-cs-fixer fix lib --dry-run
   - ./vendor/bin/phpstan analyse --configuration=phpstan.neon
   - ./vendor/bin/phpunit
