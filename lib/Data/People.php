@@ -8,6 +8,7 @@ class People
     public string $id;
     public string $name;
     public string $gender;
+    public string $gander;  // fixing bad typing from REST API ?
     public string $age;
     public string $eye_color;
     public string $hair_color;
