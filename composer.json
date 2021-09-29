@@ -23,7 +23,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.0.10",
+            "php": "8.0.11",
             "ext-sqreen": "1.24.2"
         },
         "sort-packages": true
