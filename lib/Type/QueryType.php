@@ -1,4 +1,5 @@
 <?php
+
 namespace GhibliQL\Type;
 
 use GhibliQL\AppContext;

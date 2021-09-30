@@ -1,4 +1,5 @@
 <?php
+
 namespace GhibliQL\Data;
 
 use GraphQL\Utils\Utils;
