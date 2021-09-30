@@ -1,5 +1,7 @@
 
-[![Build Status](https://travis-ci.org/kisscool-fr/ghibliql.svg?branch=master)](https://travis-ci.org/kisscool-fr/ghibliql)
+[![Build Status](https://travis-ci.org/kisscool-fr/ghibliql.svg?branch=1.0)](https://travis-ci.org/kisscool-fr/ghibliql)
+
+> :warning: **DEPRECATED**: v1.0 is deprecated and will not be updated anymore 
 
 # GhibliQL
 
