@@ -1,7 +1,7 @@
 version: "3.8"
 services:
     httpd:
-        image: httpd:2.4.46
+        image: httpd:2.4.51
         restart: unless-stopped
         ports:
             - 8080:80/tcp
@@ -23,11 +23,12 @@ services:
         volumes:
             - "./:/var/www/ghibliql"
             - "./conf/php.ini:/usr/local/etc/php/conf.d/php.ini:ro"
+        working_dir: "/var/www/ghibliql"
         depends_on:
             - redis
 
     redis:
-        image: redis:6.0.12
+        image: redis:6.2.3
         restart: unless-stopped
         ports:
             - 6379:6379/tcp
