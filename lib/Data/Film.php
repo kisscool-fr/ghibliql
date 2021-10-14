@@ -16,6 +16,8 @@ class Film
     public string $release_date;
     public string $running_time;
     public string $rt_score;
+    public string $movie_banner;
+    public string $image;
     public array $people;
     public array $species;
     public array $locations;

@@ -59,6 +59,14 @@ class FilmType extends ObjectType
                         'type' => Type::string(),
                         'description' => 'Rotten Tomato score of film'
                     ],
+                    'image' => [
+                        'type' => Type::string(),
+                        'description' => 'Movie image'
+                    ],
+                    'movie_banner' => [
+                        'type' => Type::string(),
+                        'description' => 'Movie banner'
+                    ],
                     'people' => [
                         'type' => Type::listOf(Types::people()),
                         'description' => 'People found in film'

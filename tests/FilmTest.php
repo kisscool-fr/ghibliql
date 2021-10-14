@@ -18,6 +18,8 @@ final class FilmTest extends TestCase
                     'producer' => 'StudioCanal',
                     'release_date' => '2009',
                     'rt_score' => '',
+                    'image' => '',
+                    'movie_banner' => '',
                     'people' =>  [''],
                     'species' => [''],
                     'locations' => [''],
