@@ -148,7 +148,7 @@ class DataSource
             }
         }
 
-        return $vehicles ?? [];
+        return $vehicles;
     }
 
     public static function getFilms(): array
@@ -259,9 +259,9 @@ class DataSource
         }
 
         $cacheKey = hash('sha1', $url . '|' . json_encode($args));
-        $data = self::$cache ? self::$cache->fetch($cacheKey) : false;
+        $data = self::$cache ? self::$cache->fetch($cacheKey) : '';
 
-        if (false === $data) {
+        if (empty($data)) {
             try {
                 $response = self::$client->request('GET', $url, $args);
                 $data = $response->getBody()->getContents();
@@ -276,6 +276,8 @@ class DataSource
             }
         }
 
-        return json_decode($data, true);
+        $result = json_decode($data, true); // @phpstan-ignore-line
+
+        return is_array($result) ? $result : [];
     }
 }

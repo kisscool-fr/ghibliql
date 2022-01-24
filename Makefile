@@ -41,6 +41,9 @@ docker-stop:
 jumpin:
 	$(COMPOSE) run --service-ports $(DOCKER_APP) bash
 
+check: dev
+	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && composer validate --no-check-all --strict"
+	
 stan: dev
 	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(STAN) analyse --configuration=phpstan.neon"
 

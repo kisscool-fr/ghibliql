@@ -1,8 +1,10 @@
+dist: focal
+
 language: php
 
 php:
-  # - 7.4
-  - 8.0
+  # - '7.4'
+  - '8.1.2'
 
 install:
   - composer install --no-interaction --prefer-source 
