@@ -1,5 +1,5 @@
 # https://devcenter.heroku.com/articles/php-support#supported-versions
-FROM php:8.1.3-fpm
+FROM php:8.1.4-fpm
 
 RUN apt-get update \
     && apt-get install -y zlib1g-dev git libzip-dev zip unzip \
