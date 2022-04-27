@@ -5,6 +5,9 @@
 # Composer
 vendor/
 
+# Env
+.env.local
+
 # Temporary
 .php_cs.cache
 .php-cs-fixer.cache
