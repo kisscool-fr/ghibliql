@@ -1,6 +1,6 @@
 # https://devcenter.heroku.com/articles/php-support#supported-versions
 # https://docs.travis-ci.com/user/languages/php/#php-versions
-FROM php:8.1.5-fpm
+FROM php:8.1.7-fpm
 
 RUN apt-get update \
     && apt-get install -y zlib1g-dev git libzip-dev zip unzip \

@@ -23,7 +23,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.1.4"
+            "php": "8.1.7"
         },
         "sort-packages": true
     },
