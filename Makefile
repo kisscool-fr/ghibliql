@@ -12,7 +12,7 @@ STAN = ./vendor/bin/phpstan
 
 .PHONY: run
 run:
-	$(COMPOSE) up
+	$(COMPOSE) up -d httpd
 
 build:
 	$(COMPOSE) rm -vsf
