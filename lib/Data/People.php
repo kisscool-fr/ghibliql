@@ -19,6 +19,6 @@ class People
 
     public function __construct(array $data)
     {
-        Utils::assign($this, $data, ['id']);
+        Utils::assign($this, $data);
     }
 }

@@ -249,7 +249,7 @@ class DataSource
     {
         if (is_null(self::$client)) {
             self::$client = new Client([
-                'base_uri' => 'https://ghibliapi.herokuapp.com',
+                'base_uri' => getenv('GHIBLIAPI_URL'),
                 'headers' => ['Content-Type' => 'application/json']
             ]);
         }
