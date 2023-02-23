@@ -1,10 +1,8 @@
 # -*- mode: makefile -*-
 
 COMPOSE = docker compose
-DOCKER_MACHINE = docker-machine
 DOCKER_HTTP = httpd
 DOCKER_APP = php
-ROOT = /var/www/ghibliql
 COMPOSER = composer
 PHPUNIT = ./vendor/bin/phpunit
 CSFIXER = ./vendor/bin/php-cs-fixer
@@ -12,7 +10,7 @@ STAN = ./vendor/bin/phpstan
 
 .PHONY: run
 run:
-	$(COMPOSE) up -d httpd
+	$(COMPOSE) up -d $(DOCKER_HTTP)
 
 build:
 	$(COMPOSE) rm -vsf
@@ -23,25 +21,25 @@ pull:
 	$(COMPOSE) pull	
 
 dev:
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(COMPOSER) install --optimize-autoloader"
+	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) install --optimize-autoloader"
 
 prod:
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
+	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
 
 jumpin:
-	$(COMPOSE) run --service-ports $(DOCKER_APP) bash
+	$(COMPOSE) run --no-deps $(DOCKER_APP) sh
 
 check: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && composer validate --no-check-all --strict"
+	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) validate --no-check-all --strict"
 	
 stan: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(STAN) analyse --configuration=phpstan.neon"
+	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(STAN) analyse --configuration=phpstan.neon"
 
 style: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(CSFIXER) fix ./lib --dry-run --diff --show-progress dots"
+	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(CSFIXER) fix ./lib --dry-run --diff --show-progress dots"
 
 test: dev
-	$(COMPOSE) run $(DOCKER_APP) bash -c "cd $(ROOT) && $(PHPUNIT)"
+	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(PHPUNIT)"
 
 down:
 	$(COMPOSE) down --volumes

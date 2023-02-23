@@ -1,8 +1,9 @@
 version: "3.8"
 services:
     httpd:
-        image: httpd:2.4.53
+        image: httpd:2.4.55
         restart: unless-stopped
+        container_name: httpd
         ports:
             - 8080:80/tcp
         volumes:
@@ -16,9 +17,11 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        container_name: php
         ports:
             - 9000:9000/tcp
         environment:
+            - GHIBLIAPI_URL=http://ghibliapi:3000
             - HEROKU_REDIS_AQUA_URL=redis://redis:6379
         volumes:
             - "./:/var/www/ghibliql"
@@ -30,6 +33,7 @@ services:
     redis:
         image: redis:6.2.3
         restart: unless-stopped
+        container_name: redis
         ports:
             - 6379:6379/tcp
 
