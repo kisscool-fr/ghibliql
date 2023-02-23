@@ -258,7 +258,7 @@ class DataSource
             $args = [];
         }
 
-        $cacheKey = hash('sha1', $url . '|' . json_encode($args));
+        $cacheKey = hash('sha512', $url . '|' . json_encode($args));
         $data = self::$cache ? self::$cache->fetch($cacheKey) : '';
 
         if (empty($data)) {
