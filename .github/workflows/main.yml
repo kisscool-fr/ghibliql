@@ -1,5 +1,5 @@
-name: php
-run-name: GhibliQL PHP CI (${{ github.actor }})
+name: php-build-pipeline
+run-name: Pipeline ${{ github.run.id }} run by ${{ github.actor }}
 
 on:
   push:
@@ -9,9 +9,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  pre-check:
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v3
@@ -36,11 +35,53 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-interaction
 
+  check:
+    needs: [ 'pre-check' ]
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1.16'
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
     - name: PHPStan
       run: ./vendor/bin/phpstan analyse --configuration=phpstan.neon
 
     - name: PHP-CS-Fixer
       run: ./vendor/bin/php-cs-fixer fix lib --dry-run
+
+  test:
+    needs: ['pre-check', check]
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1.16'
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
 
     - name: PHPUnit
       run: ./vendor/bin/phpunit
