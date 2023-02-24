@@ -6,7 +6,7 @@ use GhibliQL\Data\Film;
 
 final class FilmTest extends TestCase
 {
-    public function filmData()
+    public static function filmData()
     {
         return [
             [
