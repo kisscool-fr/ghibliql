@@ -26,9 +26,6 @@ dev:
 prod:
 	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
 
-jumpin:
-	$(COMPOSE) run --no-deps $(DOCKER_APP) sh
-
 check: dev
 	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) validate --no-check-all --strict"
 	

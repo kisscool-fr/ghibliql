@@ -27,10 +27,10 @@ class DataSource
      */
     public static function init(): void
     {
-        if (getenv('HEROKU_REDIS_AQUA_URL')) {
+        if (getenv('REDIS_URL')) {
             try {
                 self::$cache = new PredisCache(
-                    new \Predis\Client(getenv('HEROKU_REDIS_AQUA_URL'))
+                    new \Predis\Client(getenv('REDIS_URL'))
                 );
             } catch (\Predis\PredisException $e) {
             }
