@@ -6,13 +6,19 @@ kill_timeout = 5
 processes = []
 
 [env]
+APP_URL = "https://ghibliql.fly.dev"
+PORT = 9000
 
 [experimental]
   auto_rollback = true
 
 [build]
+  builder = "paketobuildpacks/builder:full"
+  buildpacks = ["gcr.io/paketo-buildpacks/php"]
   [build.args]
-    PHP_VERSION = "8.1"  
+    BP_PHP_VERSION="8.1.16"
+    BP_PHP_SERVER="httpd"
+    BP_PHP_WEB_DIR="public"
 
 [[services]]
   http_checks = []
