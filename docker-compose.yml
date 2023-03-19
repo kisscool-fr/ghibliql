@@ -1,9 +1,9 @@
 version: "3.8"
 services:
     httpd:
-        image: httpd:2.4.55
+        image: httpd:2.4.56-alpine
         restart: unless-stopped
-        container_name: httpd
+        container_name: ghibliql-httpd
         ports:
             - 8080:80/tcp
         volumes:
@@ -17,7 +17,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: php
+        container_name: ghibliql-php
         ports:
             - 9000:9000/tcp
         environment:
@@ -31,9 +31,9 @@ services:
             - redis
 
     redis:
-        image: redis:6.2.3
+        image: redis:6.2.11-alpine
         restart: unless-stopped
-        container_name: redis
+        container_name: ghibliql-redis
         ports:
             - 6379:6379/tcp
 

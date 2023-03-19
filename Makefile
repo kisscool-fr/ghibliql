@@ -26,18 +26,6 @@ dev:
 prod:
 	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
 
-check: dev
-	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) validate --no-check-all --strict"
-	
-stan: dev
-	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(STAN) analyse --configuration=phpstan.neon"
-
-style: dev
-	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(CSFIXER) fix ./lib --dry-run --diff --show-progress dots"
-
-test: dev
-	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(PHPUNIT)"
-
 down:
 	$(COMPOSE) down --volumes
 

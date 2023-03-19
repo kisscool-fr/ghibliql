@@ -21,7 +21,7 @@ jobs:
         php-version: '8.1.16'
 
     - name: Validate composer.json and composer.lock
-      run: composer validate --no-check-all --strict
+      run: composer check
 
     - name: Cache Composer packages
       id: composer-cache
@@ -57,10 +57,10 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: PHPStan
-      run: ./vendor/bin/phpstan analyse --configuration=phpstan.neon
+      run: composer stan
 
     - name: PHP-CS-Fixer
-      run: ./vendor/bin/php-cs-fixer fix lib --dry-run
+      run: composer style
 
   test:
     needs: ['pre-check', check]
@@ -84,4 +84,4 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: PHPUnit
-      run: ./vendor/bin/phpunit
+      run: composer test
