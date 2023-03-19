@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
@@ -23,9 +24,9 @@ final class AppContextTest extends TestCase
     }
 
      public function testViewer(): void
-    {
-        $this->assertSame('', self::$appContext->viewer);
-    }
+     {
+         $this->assertSame('', self::$appContext->viewer);
+     }
 
     public function testRequest(): void
     {

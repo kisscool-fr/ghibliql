@@ -5,13 +5,13 @@ date_default_timezone_set('Europe/Paris');
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
-use \GhibliQL\Types;
-use \GhibliQL\AppContext;
-use \GhibliQL\Data\DataSource;
-use \GraphQL\Type\Schema;
-use \GraphQL\GraphQL;
-use \GraphQL\Error\FormattedError;
-use \GraphQL\Error\DebugFlag;
+use GhibliQL\Types;
+use GhibliQL\AppContext;
+use GhibliQL\Data\DataSource;
+use GraphQL\Type\Schema;
+use GraphQL\GraphQL;
+use GraphQL\Error\FormattedError;
+use GraphQL\Error\DebugFlag;
 
 // Disable default PHP error reporting - we have better one for debug mode (see bellow)
 ini_set('display_errors', 0);
