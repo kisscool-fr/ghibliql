@@ -7,6 +7,7 @@ namespace GhibliQL\Data;
  *
  * Data retrieval class
  */
+
 use Doctrine\Common\Cache\PredisCache;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -68,7 +69,7 @@ class DataSource
                 $data->films = [$data->films];
             }
             if (count(array_filter($data->films, function ($url) use ($film_id) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 return ($id == $film_id);
             })) > 0) {
                 $peoples[$id] = $data;
@@ -109,7 +110,7 @@ class DataSource
                 $data->films = [$data->films];
             }
             if (count(array_filter($data->films, function ($url) use ($film_id) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 return ($id == $film_id);
             })) > 0) {
                 $locations[$id] = $data;
@@ -141,7 +142,7 @@ class DataSource
                 $data->films = [$data->films];
             }
             if (count(array_filter($data->films, function ($url) use ($film_id) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 return ($id == $film_id);
             })) > 0) {
                 $vehicles[$id] = $data;
@@ -245,7 +246,7 @@ class DataSource
         return self::$vehicles ?? [];
     }
 
-    private static function api(string $url, array $args=null): array
+    private static function api(string $url, array $args = null): array
     {
         if (is_null(self::$client)) {
             self::$client = new Client([

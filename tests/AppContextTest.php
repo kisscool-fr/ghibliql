@@ -23,10 +23,10 @@ final class AppContextTest extends TestCase
         $this->assertSame('https://localhost:8080', self::$appContext->rootUrl);
     }
 
-     public function testViewer(): void
-     {
-         $this->assertSame('', self::$appContext->viewer);
-     }
+    public function testViewer(): void
+    {
+        $this->assertSame('', self::$appContext->viewer);
+    }
 
     public function testRequest(): void
     {
