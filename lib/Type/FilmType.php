@@ -109,7 +109,7 @@ class FilmType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 if (empty($id)) {
                     $peoples = DataSource::findPeoplesForFilm($value->id);
                     break;
@@ -128,7 +128,7 @@ class FilmType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 $species[$id] = DataSource::findSpecie($id);
             }
         }
@@ -142,7 +142,7 @@ class FilmType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 if (empty($id)) {
                     $locations = DataSource::findLocationsForFilm($value->id);
                     break;
@@ -161,7 +161,7 @@ class FilmType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 if (empty($id)) {
                     $vehicles = DataSource::findVehiclesForFilm($value->id);
                     break;

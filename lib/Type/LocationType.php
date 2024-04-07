@@ -73,7 +73,7 @@ class LocationType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 $residents[$id] = DataSource::findPeople($id);
             }
         }
@@ -87,7 +87,7 @@ class LocationType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/')+1);
+                $id = substr($url, strrpos($url, '/') + 1);
                 $films[$id] = DataSource::findFilm($id);
             }
         }

@@ -73,7 +73,7 @@ class SpecieType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $filmUrl) {
-                $filmId = substr($filmUrl, strrpos($filmUrl, '/')+1);
+                $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
                 $films[$filmId] = DataSource::findFilm($filmId);
             }
         }
@@ -87,7 +87,7 @@ class SpecieType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $peopleUrl) {
-                $peopleId = substr($peopleUrl, strrpos($peopleUrl, '/')+1);
+                $peopleId = substr($peopleUrl, strrpos($peopleUrl, '/') + 1);
                 $peoples[$peopleId] = DataSource::findPeople($peopleId);
             }
         }

@@ -78,7 +78,7 @@ class PeopleType extends ObjectType
 
         if (property_exists($value, $info->fieldName)) {
             foreach ($value->{$info->fieldName} as $filmUrl) {
-                $filmId = substr($filmUrl, strrpos($filmUrl, '/')+1);
+                $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
                 $films[$filmId] = DataSource::findFilm($filmId);
             }
         }
@@ -89,7 +89,7 @@ class PeopleType extends ObjectType
     public function species(People $value, array $args, AppContext $context, ResolveInfo $info): mixed
     {
         if (property_exists($value, $info->fieldName)) {
-            $specieId = substr($value->{$info->fieldName}, strrpos($value->{$info->fieldName}, '/')+1);
+            $specieId = substr($value->{$info->fieldName}, strrpos($value->{$info->fieldName}, '/') + 1);
             return DataSource::findSpecie($specieId);
         }
 
