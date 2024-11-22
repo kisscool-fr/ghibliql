@@ -21,7 +21,7 @@ services:
         ports:
             - 9000:9000/tcp
         environment:
-            - GHIBLIAPI_URL=http://ghibliapi:3000
+            - GHIBLIAPI_URL=https://ghibliapi.vercel.app
             - REDIS_URL=redis://redis:6379
         volumes:
             - "./:/var/www/ghibliql"

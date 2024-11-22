@@ -1,6 +1,6 @@
 # https://devcenter.heroku.com/articles/php-support#supported-versions
 # https://docs.travis-ci.com/user/languages/php/#php-versions
-FROM php:8.1.20-fpm-alpine
+FROM php:8.3.9-fpm-alpine
 
 RUN apk -U upgrade \
     && apk add libzip-dev unzip \
