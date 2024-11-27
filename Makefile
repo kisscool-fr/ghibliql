@@ -21,10 +21,10 @@ pull:
 	$(COMPOSE) pull	
 
 dev:
-	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) install --optimize-autoloader"
+	$(COMPOSE) run $(DOCKER_APP) sh -c "$(COMPOSER) install --optimize-autoloader"
 
 prod:
-	$(COMPOSE) run --no-deps $(DOCKER_APP) sh -c "$(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
+	$(COMPOSE) run $(DOCKER_APP) sh -c "$(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
 
 down:
 	$(COMPOSE) down --volumes

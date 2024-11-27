@@ -1,16 +1,27 @@
 
-[![Build Status](https://travis-ci.org/kisscool-fr/ghibliql.svg?branch=master)](https://travis-ci.org/kisscool-fr/ghibliql)
+[![Build Status](https://github.com/kisscool-fr/ghibliql/actions/workflows/main.yml/badge.svg?branch=master](https://github.com/kisscool-fr/ghibliql)
 
 # GhibliQL
 
-GhibliQL is a [GraphQL](http://graphql.org/) wrapper to the [Studio Ghibli REST API](https://ghibliapi.herokuapp.com)
+GhibliQL is a [GraphQL](http://graphql.org/) wrapper to the [Studio Ghibli REST API](https://ghibliapi.vercel.app)
+
+## Build & run
+
+GhibliQL runs locally in Docker.
+
+1. `make pull`: pull httpd and redis docker images
+2. `make build`: build the php image
+3. `make prod`: download the minimum PHP packages
+4. `make run`: run the server locally
 
 ## Usage
 
-First, you'll need a GraphQL client to query GhibliQL, like [GraphQL IDE](https://github.com/redound/graphql-ide)
-Configure your client to use the endpoint https://ghibliql.herokuapp.com
+First, you'll need a GraphQL client to query GhibliQL, like [Insomnia](https://insomnia.rest/) or [GraphQL IDE](https://github.com/redound/graphql-ide)
+
+, you just have to build & launch with `make run`, then configure your GraphQL client to use the endpoint http://localhost:8080
 
 Then, you'll be able to explore the API using "easy-to-understand" GraphQL query.
+
 For example, if I want the full list of films title, director, and characters name:
 ```
 {
@@ -135,4 +146,4 @@ Any errors / missing data need to be reported to [GhibliAPI](https://github.com/
 
 ## Credits
 
-Of course, big thanks to [James Anaipakos](https://github.com/janaipakos/ghibliapi) for the original work on the REST API !
+Of course, big thanks to [James Anaipakos](https://github.com/janaipakos/ghibliapi) for his awesome work on the REST API !
