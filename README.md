@@ -1,26 +1,29 @@
 
-[![Build Status](https://github.com/kisscool-fr/ghibliql/actions/workflows/main.yml/badge.svg?branch=master](https://github.com/kisscool-fr/ghibliql)
+![Build Status](https://github.com/kisscool-fr/ghibliql/actions/workflows/main.yml/badge.svg?branch=master)
 
 # GhibliQL
 
 GhibliQL is a [GraphQL](http://graphql.org/) wrapper to the [Studio Ghibli REST API](https://ghibliapi.vercel.app)
 
-## Build & run
+## Build & Run
 
-GhibliQL runs locally in Docker.
+GhibliQL runs locally in Docker, there is a Makefile to help you:
 
-1. `make pull`: pull httpd and redis docker images
-2. `make build`: build the php image
-3. `make prod`: download the minimum PHP packages
-4. `make run`: run the server locally
+| command      | description                            |
+| ------------ | -------------------------------------- |
+| `make pull`  | pull `httpd` and `redis` docker images |
+| `make build` | build the `php` image                  |
+| `make prod`  | download the minimum PHP packages      |
+| `make dev`   | download the optional PHP packages     |
+| `make run`   | run the server locally, on port 8080   |
 
 ## Usage
 
 First, you'll need a GraphQL client to query GhibliQL, like [Insomnia](https://insomnia.rest/) or [GraphQL IDE](https://github.com/redound/graphql-ide)
 
-, you just have to build & launch with `make run`, then configure your GraphQL client to use the endpoint http://localhost:8080
+Then, launch the server with `make run`, then configure your GraphQL client to use the endpoint `http://localhost:8080`
 
-Then, you'll be able to explore the API using "easy-to-understand" GraphQL query.
+Finally, you'll be able to explore the API using "easy-to-understand" GraphQL query.
 
 For example, if I want the full list of films title, director, and characters name:
 ```
