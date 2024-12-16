@@ -2,4 +2,6 @@ parameters:
     level: max
     paths:
         - lib
-    checkMissingIterableValueType: false
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+

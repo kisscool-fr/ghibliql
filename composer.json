@@ -34,7 +34,7 @@
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^7.9",
         "predis/predis": "^2.3",
-        "webonyx/graphql-php": "^15.18"
+        "webonyx/graphql-php": "^15.19"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.65",
