@@ -26,6 +26,9 @@ dev:
 prod:
 	$(COMPOSE) run $(DOCKER_APP) sh -c "$(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative"
 
+security:
+	gitleaks dir ./ --max-decode-depth 10 --no-banner --report-format json
+
 down:
 	$(COMPOSE) down --volumes
 
