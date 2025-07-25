@@ -1,0 +1,39 @@
+meta {
+  name: location (Satsuki School House)
+  type: graphql
+  seq: 4
+}
+
+post {
+  url: {{baseURL}}
+  body: graphql
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:graphql {
+  query ($locationId: ID!) {
+    location(id: $locationId) {
+      name
+      climate
+      terrain
+      surface_water
+      residents {
+        name
+      }
+      films {
+        title
+      }
+    }
+  }
+  
+}
+
+body:graphql:vars {
+  {
+    "locationId": "ee897b2a-405e-42b9-bff4-8b51b0f03cab"
+  }
+}

@@ -1,0 +1,36 @@
+meta {
+  name: films
+  type: graphql
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}
+  body: graphql
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:graphql {
+  {
+  	films {
+  		id
+  		title
+  		director
+  		release_date
+  		people {
+  			id
+  			name
+  			age
+  		}
+  	}
+  }
+  
+}
+
+body:graphql:vars {
+  {}
+}

@@ -1,0 +1,53 @@
+meta {
+  name: film (My Neighbor Totoro)
+  type: graphql
+  seq: 3
+}
+
+post {
+  url: {{baseURL}}
+  body: graphql
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:graphql {
+  query ($filmId: ID!) {
+  	film(id: $filmId) {
+  		title
+  		director
+  		release_date
+  		movie_banner
+  		image
+  		people {
+  			name
+  			gender
+  			age
+  			species {
+  				name
+  			}
+  		}
+  		locations {
+  			name
+  			climate
+  			terrain
+  		}
+  		species {
+  			name
+  		}
+  		vehicles {
+  			name
+  		}
+  	}
+  }
+  
+}
+
+body:graphql:vars {
+  {
+    "filmId": "58611129-2dbc-4a81-a72f-77ddfc1b1b49"
+  }
+}

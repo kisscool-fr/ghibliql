@@ -1,0 +1,32 @@
+meta {
+  name: introspection
+  type: graphql
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}
+  body: graphql
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:graphql {
+  {
+    __type(name: "Query") {
+      name
+      fields {
+        name
+  			description
+  			isDeprecated
+        type {
+          name
+  				description
+        }
+      }
+    }
+  }
+}

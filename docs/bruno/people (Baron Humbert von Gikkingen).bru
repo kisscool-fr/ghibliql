@@ -1,0 +1,39 @@
+meta {
+  name: people (Baron Humbert von Gikkingen)
+  type: graphql
+  seq: 5
+}
+
+post {
+  url: {{baseURL}}
+  body: graphql
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:graphql {
+  query($peopleId: ID!) {
+    people(id: $peopleId) {
+      name
+      age
+      films {
+        title
+        people {
+          name
+        }
+      }
+      species {
+        name
+      }
+    }
+  }
+}
+
+body:graphql:vars {
+  {
+    "peopleId": "fc196c4f-0201-4ed2-9add-c6403f7c4d32"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "name": "GhibliQL",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ],
+  "size": 0.0032987594604492188,
+  "filesCount": 10,
+  "presets": {
+    "requestType": "graphql",
+    "requestUrl": ""
+  }
+}

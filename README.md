@@ -19,7 +19,9 @@ GhibliQL runs locally in Docker, there is a Makefile to help you:
 
 ## Usage
 
-First, you'll need a GraphQL client to query GhibliQL, like [Insomnia](https://insomnia.rest/) or [GraphQL IDE](https://github.com/redound/graphql-ide)
+First, you'll need a GraphQL client to query GhibliQL, like [Bruno](https://www.usebruno.com/), [Insomnia](https://insomnia.rest/) or [GraphQL IDE](https://github.com/redound/graphql-ide)
+
+If you use Bruno, you'll find some query example in `docs/bruno/` (in Bruno, `Open Collection` and point to this directory, then choose `dev` environnment)
 
 Then, launch the server with `make run`, then configure your GraphQL client to use the endpoint `http://localhost:8080`
 

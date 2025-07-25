@@ -1,0 +1,42 @@
+meta {
+  name: vehicle (Sosuke Boat)
+  type: graphql
+  seq: 7
+}
+
+post {
+  url: {{baseURL}}
+  body: graphql
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:graphql {
+  query ($vehiculeId: ID!) {
+    vehicle(id: $vehiculeId) {
+      name
+      description
+      vehicle_class
+      length
+      pilot {
+        name
+      }
+      films {
+        title
+      }
+      pilot {
+        name
+      }
+    }
+  }
+  
+}
+
+body:graphql:vars {
+  {
+    "vehiculeId": "923d70c9-8f15-4972-ad53-0128b261d628"
+  }
+}
