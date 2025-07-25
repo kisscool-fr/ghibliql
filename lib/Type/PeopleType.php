@@ -17,7 +17,8 @@ class PeopleType extends ObjectType
     {
         $config = [
             'name' => 'People',
-            'description' => 'The People endpoint returns information about all of the Studio Ghibli people. This broadly includes all Ghibli characters, human and non-.',
+            'description' => 'The People endpoint returns information about all of the Studio Ghibli people. ' .
+            'This broadly includes all Ghibli characters, human and non-.',
             'fields' => function () {
                 return [
                     'id' => [

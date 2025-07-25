@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests;
+
 use PHPUnit\Framework\TestCase;
 use GhibliQL\Types;
 use GhibliQL\Type\FilmType;

@@ -1,12 +1,12 @@
 <?php
 
-namespace GhibliQL\Data;
-
 /**
  * Class DataSource
  *
  * Data retrieval class
  */
+
+namespace GhibliQL\Data;
 
 use Doctrine\Common\Cache\PredisCache;
 use GuzzleHttp\Client;
@@ -68,10 +68,12 @@ class DataSource
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
-            if (count(array_filter($data->films, function ($url) use ($film_id) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                return ($id == $film_id);
-            })) > 0) {
+            if (
+                count(array_filter($data->films, function ($url) use ($film_id) {
+                    $id = substr($url, strrpos($url, '/') + 1);
+                    return ($id == $film_id);
+                })) > 0
+            ) {
                 $peoples[$id] = $data;
             }
         }
@@ -109,10 +111,12 @@ class DataSource
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
-            if (count(array_filter($data->films, function ($url) use ($film_id) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                return ($id == $film_id);
-            })) > 0) {
+            if (
+                count(array_filter($data->films, function ($url) use ($film_id) {
+                    $id = substr($url, strrpos($url, '/') + 1);
+                    return ($id == $film_id);
+                })) > 0
+            ) {
                 $locations[$id] = $data;
             }
         }
@@ -141,10 +145,12 @@ class DataSource
             if (is_string($data->films)) {
                 $data->films = [$data->films];
             }
-            if (count(array_filter($data->films, function ($url) use ($film_id) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                return ($id == $film_id);
-            })) > 0) {
+            if (
+                count(array_filter($data->films, function ($url) use ($film_id) {
+                    $id = substr($url, strrpos($url, '/') + 1);
+                    return ($id == $film_id);
+                })) > 0
+            ) {
                 $vehicles[$id] = $data;
             }
         }
@@ -272,7 +278,13 @@ class DataSource
                 }
             } catch (RequestException $e) {
                 if ($e->hasResponse()) {
-                    error_log($e->getResponse()->getStatusCode() . ' ' . $e->getResponse()->getReasonPhrase());  // @phpstan-ignore-line
+                    error_log(
+                        sprintf(
+                            '%s %s',
+                            $e->getResponse()->getStatusCode(), // @phpstan-ignore-line
+                            $e->getResponse()->getReasonPhrase() // @phpstan-ignore-line
+                        )
+                    );
                 }
             }
         }

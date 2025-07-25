@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests;
+
 use PHPUnit\Framework\TestCase;
 use GhibliQL\Data\Film;
 
@@ -14,7 +16,8 @@ final class FilmTest extends TestCase
                 [
                     'id' => '116484',
                     'title' => 'Chloe',
-                    'description' => 'Une femme pensant que son mari est infidèle décide d\'embaucher une escort girl afin de prendre son époux en flagrant délit d\'adultère...',
+                    'description' => 'Une femme pensant que son mari est infidèle décide d\'embaucher une escort ' .
+                    'girl afin de prendre son époux en flagrant délit d\'adultère...',
                     'director' => 'Atom Egoyan',
                     'producer' => 'StudioCanal',
                     'release_date' => '2009',

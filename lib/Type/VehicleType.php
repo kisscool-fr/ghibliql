@@ -16,7 +16,8 @@ class VehicleType extends ObjectType
     {
         $config = [
             'name' => 'Vehicle',
-            'description' => 'The Vehicles endpoint returns information about all of the Studio Ghibli vechiles. This includes cars, ships, and planes.',
+            'description' => 'The Vehicles endpoint returns information about all of the Studio Ghibli vechiles. ' .
+            'This includes cars, ships, and planes.',
             'fields' => function () {
                 return [
                     'id' => [

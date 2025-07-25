@@ -16,7 +16,8 @@ class SpecieType extends ObjectType
     {
         $config = [
             'name' => 'Specie',
-            'description' => 'The Species endpoint returns information about all of the Studio Ghibli species. This includes humans, animals, and spirits et al.',
+            'description' => 'The Species endpoint returns information about all of the Studio Ghibli species. ' .
+            'This includes humans, animals, and spirits et al.',
             'fields' => function () {
                 return [
                     'id' => [

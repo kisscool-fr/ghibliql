@@ -16,7 +16,8 @@ class LocationType extends ObjectType
     {
         $config = [
             'name' => 'Location',
-            'description' => 'The Locations endpoint returns information about all of the Studio Ghibli locations. This broadly includes lands, countries, and places.',
+            'description' => 'The Locations endpoint returns information about all of the Studio Ghibli locations. ' .
+            'This broadly includes lands, countries, and places.',
             'fields' => function () {
                 return [
                     'id' => [
