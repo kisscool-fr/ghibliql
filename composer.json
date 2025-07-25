@@ -26,7 +26,10 @@
         "platform": {
             "php": "8.3.21"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "require": {
         "php": ">=8.3, <8.4",
@@ -34,20 +37,25 @@
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^7.9",
         "predis/predis": "^2.3",
-        "webonyx/graphql-php": "^15.20"
+        "webonyx/graphql-php": "^15.21"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.75",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
+        "friendsofphp/php-cs-fixer": "^3.84",
+        "pheromone/phpcs-security-audit": "^2.0",
         "phpstan/phpstan": "^1.12",
         "phpunit/phpunit": "^11.5",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "squizlabs/php_codesniffer": "^3.13"
     },
     "scripts": {
-        "check": "composer validate --no-check-all --strict",
+        "check": "composer validate --check-lock --strict",
         "lint": "php -l lib/ public/ tests/",
+        "standard": "./vendor/bin/phpcs --extensions=php --standard=PSR12 lib/ public/ tests/",
+        "scan": "./vendor/bin/phpcs --extensions=php --standard=./vendor/pheromone/phpcs-security-audit/example_base_ruleset.xml lib/",
         "stan": "./vendor/bin/phpstan analyse --configuration=phpstan.neon",
         "style": "./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --dry-run --diff --show-progress dots",
         "style-fix": "./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --diff --show-progress dots",
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/phpunit --colors=always --display-errors"
     }
 }
