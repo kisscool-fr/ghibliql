@@ -1,5 +1,3 @@
-# https://devcenter.heroku.com/articles/php-support#supported-versions
-# https://docs.travis-ci.com/user/languages/php/#php-versions
 FROM php:8.3.21-fpm-alpine
 
 RUN apk -U upgrade \
