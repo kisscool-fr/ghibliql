@@ -59,6 +59,13 @@ jobs:
     - name: PHP Lint
       run: composer lint
 
+    - name: PHP PSR12
+      run: composer standard
+
+    - name: Code Security Scan
+      run: composer scan
+      continue-on-error: true
+
     - name: PHPStan
       run: composer stan
 
