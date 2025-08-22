@@ -37,11 +37,11 @@
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^7.9",
         "predis/predis": "^2.3",
-        "webonyx/graphql-php": "^15.21"
+        "webonyx/graphql-php": "^15.24"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
-        "friendsofphp/php-cs-fixer": "^3.84",
+        "friendsofphp/php-cs-fixer": "^3.86",
         "pheromone/phpcs-security-audit": "^2.0",
         "phpstan/phpstan": "^1.12",
         "phpunit/phpunit": "^11.5",
