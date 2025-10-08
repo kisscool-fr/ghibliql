@@ -1,4 +1,4 @@
-FROM php:8.3.21-fpm-alpine
+FROM php:8.4.10-fpm-alpine
 
 RUN apk -U upgrade \
     && apk add libzip-dev unzip \

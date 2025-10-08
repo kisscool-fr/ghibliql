@@ -3,7 +3,7 @@ run-name: Pipeline ${{ github.run.id }} run by ${{ github.actor }}
 
 on:
   push:
-    branches: [ 'master', '2.0', '1.0' ]
+    branches: [ 'master', '2.*', '1.0' ]
 
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.3'
+        php-version: '8.4'
 
     - name: Validate composer.json and composer.lock
       run: composer check
@@ -45,7 +45,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.3'
+        php-version: '8.4'
 
     - name: Cache Composer packages
       id: composer-cache
@@ -64,7 +64,6 @@ jobs:
 
     - name: Code Security Scan
       run: composer scan
-      continue-on-error: true
 
     - name: PHPStan
       run: composer stan
@@ -82,7 +81,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.3'
+        php-version: '8.4'
 
     - name: Cache Composer packages
       id: composer-cache

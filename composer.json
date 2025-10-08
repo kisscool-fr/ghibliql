@@ -24,7 +24,7 @@
     "config": {
         "optimize-autoloader": true,
         "platform": {
-            "php": "8.3.21"
+            "php": "8.4.10"
         },
         "sort-packages": true,
         "allow-plugins": {
@@ -32,21 +32,20 @@
         }
     },
     "require": {
-        "php": ">=8.3, <8.4",
-        "doctrine/cache": "^1.13",
+        "php": ">=8.4, <8.5",
         "ext-mbstring": "*",
-        "guzzlehttp/guzzle": "^7.9",
-        "predis/predis": "^2.3",
-        "webonyx/graphql-php": "^15.24"
+        "guzzlehttp/guzzle": "^7.10",
+        "predis/predis": "^3.2",
+        "webonyx/graphql-php": "^15.25"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
         "friendsofphp/php-cs-fixer": "^3.86",
         "pheromone/phpcs-security-audit": "^2.0",
-        "phpstan/phpstan": "^1.12",
-        "phpunit/phpunit": "^11.5",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.4",
         "roave/security-advisories": "dev-master",
-        "squizlabs/php_codesniffer": "^3.13"
+        "squizlabs/php_codesniffer": "^4.0"
     },
     "scripts": {
         "check": "composer validate --check-lock --strict",
