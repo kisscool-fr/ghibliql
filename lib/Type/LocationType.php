@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GhibliQL\Type;
 
 use GraphQL\Type\Definition\ObjectType;
@@ -57,11 +59,12 @@ class LocationType extends ObjectType
             'interfaces' => [
             ],
             'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
-                if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
+                if (!in_array($info->fieldName, ['id', 'name']) && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
-                } else {
+                } elseif (($value instanceof Location) && property_exists($value, $info->fieldName)) {
                     return $value->{$info->fieldName};
                 }
+                return null;
             }
         ];
 
@@ -72,10 +75,12 @@ class LocationType extends ObjectType
     {
         $residents = [];
 
-        if (property_exists($value, $info->fieldName)) {
-            foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                $residents[$id] = DataSource::findPeople($id);
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
+            foreach ($value->{$info->fieldName} as $residentUrl) {
+                if (is_string($residentUrl)) {
+                    $id = substr($residentUrl, strrpos($residentUrl, '/') + 1);
+                    $residents[$id] = DataSource::findPeople($id);
+                }
             }
         }
 
@@ -86,10 +91,12 @@ class LocationType extends ObjectType
     {
         $films = [];
 
-        if (property_exists($value, $info->fieldName)) {
-            foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                $films[$id] = DataSource::findFilm($id);
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
+            foreach ($value->{$info->fieldName} as $filmUrl) {
+                if (is_string($filmUrl)) {
+                    $id = substr($filmUrl, strrpos($filmUrl, '/') + 1);
+                    $films[$id] = DataSource::findFilm($id);
+                }
             }
         }
 

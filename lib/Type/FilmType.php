@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GhibliQL\Type;
 
 use GraphQL\Type\Definition\ObjectType;
@@ -92,11 +94,12 @@ class FilmType extends ObjectType
             'interfaces' => [
             ],
             'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
-                if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
+                if (!in_array($info->fieldName, ['id', 'name']) && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
-                } else {
+                } elseif (($value instanceof Film) && property_exists($value, $info->fieldName)) {
                     return $value->{$info->fieldName};
                 }
+                return null;
             }
         ];
 
@@ -107,14 +110,16 @@ class FilmType extends ObjectType
     {
         $peoples = [];
 
-        if (property_exists($value, $info->fieldName)) {
-            foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                if (empty($id)) {
-                    $peoples = DataSource::findPeoplesForFilm($value->id);
-                    break;
-                } else {
-                    $peoples[$id] = DataSource::findPeople($id);
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
+            foreach ($value->{$info->fieldName} as $peopleUrl) {
+                if (is_string($peopleUrl)) {
+                    $id = substr($peopleUrl, strrpos($peopleUrl, '/') + 1);
+                    if (empty($id)) {
+                        $peoples = DataSource::findPeoplesForFilm($value->id);
+                        break;
+                    } else {
+                        $peoples[$id] = DataSource::findPeople($id);
+                    }
                 }
             }
         }
@@ -126,10 +131,12 @@ class FilmType extends ObjectType
     {
         $species = [];
 
-        if (property_exists($value, $info->fieldName)) {
-            foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                $species[$id] = DataSource::findSpecie($id);
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
+            foreach ($value->{$info->fieldName} as $specieUrl) {
+                if (is_string($specieUrl)) {
+                    $id = substr($specieUrl, strrpos($specieUrl, '/') + 1);
+                    $species[$id] = DataSource::findSpecie($id);
+                }
             }
         }
 
@@ -140,14 +147,16 @@ class FilmType extends ObjectType
     {
         $locations = [];
 
-        if (property_exists($value, $info->fieldName)) {
-            foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                if (empty($id)) {
-                    $locations = DataSource::findLocationsForFilm($value->id);
-                    break;
-                } else {
-                    $locations[$id] = DataSource::findLocation($id);
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
+            foreach ($value->{$info->fieldName} as $locationUrl) {
+                if (is_string($locationUrl)) {
+                    $id = substr($locationUrl, strrpos($locationUrl, '/') + 1);
+                    if (empty($id)) {
+                        $locations = DataSource::findLocationsForFilm($value->id);
+                        break;
+                    } else {
+                        $locations[$id] = DataSource::findLocation($id);
+                    }
                 }
             }
         }
@@ -159,14 +168,16 @@ class FilmType extends ObjectType
     {
         $vehicles = [];
 
-        if (property_exists($value, $info->fieldName)) {
-            foreach ($value->{$info->fieldName} as $url) {
-                $id = substr($url, strrpos($url, '/') + 1);
-                if (empty($id)) {
-                    $vehicles = DataSource::findVehiclesForFilm($value->id);
-                    break;
-                } else {
-                    $vehicles[$id] = DataSource::findVehicle($id);
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
+            foreach ($value->{$info->fieldName} as $vehicleUrl) {
+                if (is_string($vehicleUrl)) {
+                    $id = substr($vehicleUrl, strrpos($vehicleUrl, '/') + 1);
+                    if (empty($id)) {
+                        $vehicles = DataSource::findVehiclesForFilm($value->id);
+                        break;
+                    } else {
+                        $vehicles[$id] = DataSource::findVehicle($id);
+                    }
                 }
             }
         }

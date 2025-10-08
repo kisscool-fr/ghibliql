@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GhibliQL\Type;
 
 use GraphQL\Type\Definition\ObjectType;
@@ -17,7 +19,7 @@ class VehicleType extends ObjectType
         $config = [
             'name' => 'Vehicle',
             'description' => 'The Vehicles endpoint returns information about all of the Studio Ghibli vechiles. ' .
-            'This includes cars, ships, and planes.',
+                'This includes cars, ships, and planes.',
             'fields' => function () {
                 return [
                     'id' => [
@@ -54,14 +56,14 @@ class VehicleType extends ObjectType
                     ]
                 ];
             },
-            'interfaces' => [
-            ],
+            'interfaces' => [],
             'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
-                if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
+                if (!in_array($info->fieldName, ['id', 'name']) && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
-                } else {
+                } elseif (($value instanceof Vehicle) && property_exists($value, $info->fieldName)) {
                     return $value->{$info->fieldName};
                 }
+                return null;
             }
         ];
 
@@ -72,10 +74,12 @@ class VehicleType extends ObjectType
     {
         $films = [];
 
-        if (property_exists($value, $info->fieldName)) {
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
             foreach ($value->{$info->fieldName} as $filmUrl) {
-                $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
-                $films[$filmId] = DataSource::findFilm($filmId);
+                if (is_string($filmUrl)) {
+                    $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
+                    $films[$filmId] = DataSource::findFilm($filmId);
+                }
             }
         }
 
@@ -86,7 +90,7 @@ class VehicleType extends ObjectType
     {
         $people = null;
 
-        if (property_exists($value, $info->fieldName)) {
+        if (property_exists($value, $info->fieldName) && is_string($value->{$info->fieldName})) {
             $peopleUrl = $value->{$info->fieldName};
             $peopleId = substr($peopleUrl, strrpos($peopleUrl, '/') + 1);
             $people = DataSource::findPeople($peopleId);

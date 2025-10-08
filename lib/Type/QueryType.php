@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GhibliQL\Type;
 
 use GhibliQL\AppContext;
@@ -79,6 +81,9 @@ class QueryType extends ObjectType
         parent::__construct($config);
     }
 
+    /**
+     * @param array<string> $args
+     */
     public function film(mixed $rootValue, array $args): mixed
     {
         return DataSource::findFilm($args['id']);
@@ -89,6 +94,9 @@ class QueryType extends ObjectType
         return DataSource::getFilms();
     }
 
+    /**
+     * @param array<string> $args
+     */
     public function people(mixed $rootValue, array $args): mixed
     {
         return DataSource::findPeople($args['id']);
@@ -99,6 +107,9 @@ class QueryType extends ObjectType
         return DataSource::getPeoples();
     }
 
+    /**
+     * @param array<string> $args
+     */
     public function specie(mixed $rootValue, array $args): mixed
     {
         return DataSource::findSpecie($args['id']);
@@ -109,6 +120,9 @@ class QueryType extends ObjectType
         return DataSource::getSpecies();
     }
 
+    /**
+     * @param array<string> $args
+     */
     public function location(mixed $rootValue, array $args): mixed
     {
         return DataSource::findLocation($args['id']);
@@ -119,6 +133,9 @@ class QueryType extends ObjectType
         return DataSource::getLocations();
     }
 
+    /**
+     * @param array<string> $args
+     */
     public function vehicle(mixed $rootValue, array $args): mixed
     {
         return DataSource::findVehicle($args['id']);

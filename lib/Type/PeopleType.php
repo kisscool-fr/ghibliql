@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GhibliQL\Type;
 
 use GraphQL\Type\Definition\ObjectType;
@@ -62,11 +64,12 @@ class PeopleType extends ObjectType
             'interfaces' => [
             ],
             'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
-                if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
+                if (!in_array($info->fieldName, ['id', 'name']) && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
-                } else {
+                } elseif (($value instanceof People) && property_exists($value, $info->fieldName)) {
                     return $value->{$info->fieldName};
                 }
+                return null;
             }
         ];
 
@@ -77,10 +80,12 @@ class PeopleType extends ObjectType
     {
         $films = [];
 
-        if (property_exists($value, $info->fieldName)) {
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
             foreach ($value->{$info->fieldName} as $filmUrl) {
-                $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
-                $films[$filmId] = DataSource::findFilm($filmId);
+                if (is_string($filmUrl)) {
+                    $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
+                    $films[$filmId] = DataSource::findFilm($filmId);
+                }
             }
         }
 
@@ -89,8 +94,9 @@ class PeopleType extends ObjectType
 
     public function species(People $value, array $args, AppContext $context, ResolveInfo $info): mixed
     {
-        if (property_exists($value, $info->fieldName)) {
-            $specieId = substr($value->{$info->fieldName}, strrpos($value->{$info->fieldName}, '/') + 1);
+        if (property_exists($value, $info->fieldName) && is_string($value->{$info->fieldName})) {
+            $specieUrl = $value->{$info->fieldName};
+            $specieId = substr($specieUrl, strrpos($specieUrl, '/') + 1);
             return DataSource::findSpecie($specieId);
         }
 

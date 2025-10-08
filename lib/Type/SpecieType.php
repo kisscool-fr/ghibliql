@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GhibliQL\Type;
 
 use GraphQL\Type\Definition\ObjectType;
@@ -57,11 +59,12 @@ class SpecieType extends ObjectType
             'interfaces' => [
             ],
             'resolveField' => function ($value, $args, $context, ResolveInfo $info) {
-                if (($info->fieldName != 'id') && method_exists($this, $info->fieldName)) {
+                if (!in_array($info->fieldName, ['id', 'name']) && method_exists($this, $info->fieldName)) {
                     return $this->{$info->fieldName}($value, $args, $context, $info);
-                } else {
+                } elseif (($value instanceof Specie) && property_exists($value, $info->fieldName)) {
                     return $value->{$info->fieldName};
                 }
+                return null;
             }
         ];
 
@@ -72,10 +75,12 @@ class SpecieType extends ObjectType
     {
         $films = [];
 
-        if (property_exists($value, $info->fieldName)) {
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
             foreach ($value->{$info->fieldName} as $filmUrl) {
-                $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
-                $films[$filmId] = DataSource::findFilm($filmId);
+                if (is_string($filmUrl)) {
+                    $filmId = substr($filmUrl, strrpos($filmUrl, '/') + 1);
+                    $films[$filmId] = DataSource::findFilm($filmId);
+                }
             }
         }
 
@@ -86,10 +91,12 @@ class SpecieType extends ObjectType
     {
         $peoples = [];
 
-        if (property_exists($value, $info->fieldName)) {
+        if (property_exists($value, $info->fieldName) && is_array($value->{$info->fieldName})) {
             foreach ($value->{$info->fieldName} as $peopleUrl) {
-                $peopleId = substr($peopleUrl, strrpos($peopleUrl, '/') + 1);
-                $peoples[$peopleId] = DataSource::findPeople($peopleId);
+                if (is_string($peopleUrl)) {
+                    $peopleId = substr($peopleUrl, strrpos($peopleUrl, '/') + 1);
+                    $peoples[$peopleId] = DataSource::findPeople($peopleId);
+                }
             }
         }
 

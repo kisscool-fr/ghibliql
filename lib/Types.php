@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GhibliQL;
 
 use GhibliQL\Type\FilmType;

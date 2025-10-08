@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use GhibliQL\Data\Film;
 
@@ -34,9 +35,7 @@ final class FilmTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider filmData
-     */
+    #[DataProvider('filmData')]
     public function testFilm(array $data)
     {
         $film = new Film($data);

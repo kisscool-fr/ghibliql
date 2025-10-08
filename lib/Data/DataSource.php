@@ -1,26 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
+namespace GhibliQL\Data;
+
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\RequestException;
+use Predis\Client as RedisClient;
+
 /**
  * Class DataSource
  *
  * Data retrieval class
  */
-
-namespace GhibliQL\Data;
-
-use Doctrine\Common\Cache\PredisCache;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-
 class DataSource
 {
-    private static ?Client $client = null;
-    private static ?PredisCache $cache = null;
+    private static ?HttpClient $client = null;
+    private static ?RedisClient $cache = null;
 
+    /** @var array<Film> $films */
     private static ?array $films = null;
+    /** @var array<People> $peoples */
     private static ?array $peoples = null;
+    /** @var array<Specie> $species */
     private static ?array $species = null;
+    /** @var array<Location> $locations */
     private static ?array $locations = null;
+    /** @var array<Vehicle> $vehicles */
     private static ?array $vehicles = null;
 
     /**
@@ -30,10 +36,10 @@ class DataSource
     {
         if (getenv('REDIS_URL')) {
             try {
-                self::$cache = new PredisCache(
-                    new \Predis\Client(getenv('REDIS_URL'))
-                );
+                self::$cache = new RedisClient(getenv('REDIS_URL'));
             } catch (\Predis\PredisException $e) {
+                error_log('No Redis cache available');
+                error_log($e->getMessage());
             }
         }
     }
@@ -69,7 +75,7 @@ class DataSource
                 $data->films = [$data->films];
             }
             if (
-                count(array_filter($data->films, function ($url) use ($film_id) {
+                count(array_filter($data->films, function ($url) use ($film_id) { // phpcs:ignore
                     $id = substr($url, strrpos($url, '/') + 1);
                     return ($id == $film_id);
                 })) > 0
@@ -112,7 +118,7 @@ class DataSource
                 $data->films = [$data->films];
             }
             if (
-                count(array_filter($data->films, function ($url) use ($film_id) {
+                count(array_filter($data->films, function ($url) use ($film_id) { // phpcs:ignore
                     $id = substr($url, strrpos($url, '/') + 1);
                     return ($id == $film_id);
                 })) > 0
@@ -146,7 +152,7 @@ class DataSource
                 $data->films = [$data->films];
             }
             if (
-                count(array_filter($data->films, function ($url) use ($film_id) {
+                count(array_filter($data->films, function ($url) use ($film_id) { // phpcs:ignore
                     $id = substr($url, strrpos($url, '/') + 1);
                     return ($id == $film_id);
                 })) > 0
@@ -166,10 +172,11 @@ class DataSource
             $films = self::api('/films');
 
             foreach ($films as $film) {
-                $datas = array_combine(array_keys($film), array_values($film));
-                self::$films[$film['id']] = new Film( // @phpstan-ignore-next-line
-                    is_array($datas) ? $datas : []
-                );
+                // $datas = array_combine(array_keys($film), array_values($film));
+                if (!is_array($film) || !array_key_exists('id', $film) || !is_string($film['id'])) {
+                    continue;
+                }
+                self::$films[$film['id']] = new Film($film); // @phpstan-ignore argument.type
             }
         }
 
@@ -184,10 +191,11 @@ class DataSource
             $peoples = self::api('/people');
 
             foreach ($peoples as $people) {
-                $datas = array_combine(array_keys($people), array_values($people));
-                self::$peoples[$people['id']] = new People( // @phpstan-ignore-next-line
-                    is_array($datas) ? $datas : []
-                );
+                // $datas = array_combine(array_keys($people), array_values($people));
+                if (!is_array($people) || !array_key_exists('id', $people) || !is_string($people['id'])) {
+                    continue;
+                }
+                self::$peoples[$people['id']] = new People($people); // @phpstan-ignore argument.type
             }
         }
 
@@ -202,10 +210,11 @@ class DataSource
             $species = self::api('/species');
 
             foreach ($species as $specie) {
-                $datas = array_combine(array_keys($specie), array_values($specie));
-                self::$species[$specie['id']] = new Specie( // @phpstan-ignore-next-line
-                    is_array($datas) ? $datas : []
-                );
+                // $datas = array_combine(array_keys($specie), array_values($specie));
+                if (!is_array($specie) || !array_key_exists('id', $specie) || !is_string($specie['id'])) {
+                    continue;
+                }
+                self::$species[$specie['id']] = new Specie($specie); // @phpstan-ignore argument.type
             }
         }
 
@@ -221,13 +230,14 @@ class DataSource
 
             foreach ($locations as $location) {
                 // url should be string, not array
-                if (is_array($location['url'])) {
-                    $location['url'] = array_shift($location['url']);
+                // if (is_array($location['url'])) {
+                //     $location['url'] = array_shift($location['url']);
+                // }
+                // $datas = array_combine(array_keys($location), array_values($location));
+                if (!is_array($location) || !array_key_exists('id', $location) || !is_string($location['id'])) {
+                    continue;
                 }
-                $datas = array_combine(array_keys($location), array_values($location));
-                self::$locations[$location['id']] = new Location( // @phpstan-ignore-next-line
-                    is_array($datas) ? $datas : []
-                );
+                self::$locations[$location['id']] = new Location($location); // @phpstan-ignore argument.type
             }
         }
 
@@ -242,20 +252,28 @@ class DataSource
             $vehicles = self::api('/vehicles');
 
             foreach ($vehicles as $vehicle) {
-                $datas = array_combine(array_keys($vehicle), array_values($vehicle));
-                self::$vehicles[$vehicle['id']] = new Vehicle( // @phpstan-ignore-next-line
-                    is_array($datas) ? $datas : []
-                );
+                // $datas = array_combine(array_keys($vehicle), array_values($vehicle));
+                if (!is_array($vehicle) || !array_key_exists('id', $vehicle) || !is_string($vehicle['id'])) {
+                    continue;
+                }
+                self::$vehicles[$vehicle['id']] = new Vehicle($vehicle); // @phpstan-ignore argument.type
             }
         }
 
         return self::$vehicles ?? [];
     }
 
-    private static function api(string $url, array $args = null): array
+    /**
+     * @return array<mixed>
+     */
+    private static function api(string $url, ?array $args = null): array
     {
         if (is_null(self::$client)) {
-            self::$client = new Client([
+            if (!getenv('GHIBLIAPI_URL')) {
+                error_log('Please define GHIBLIAPI_URL source');
+                exit;
+            }
+            self::$client = new HttpClient([
                 'base_uri' => getenv('GHIBLIAPI_URL'),
                 'headers' => ['Content-Type' => 'application/json']
             ]);
@@ -265,8 +283,8 @@ class DataSource
             $args = [];
         }
 
-        $cacheKey = hash('sha512', $url . '|' . json_encode($args));
-        $data = self::$cache ? self::$cache->fetch($cacheKey) : '';
+        $cacheKey = hash('fnv1a64', $url . '|' . json_encode($args)); // phpcs:ignore
+        $data = self::$cache ? self::$cache->get($cacheKey) : '';
 
         if (empty($data)) {
             try {
@@ -274,7 +292,7 @@ class DataSource
                 $data = $response->getBody()->getContents();
 
                 if (self::$cache) {
-                    self::$cache->save($cacheKey, $data, 3600);
+                    self::$cache->set($cacheKey, $data, 'EX', 3600);
                 }
             } catch (RequestException $e) {
                 if ($e->hasResponse()) {
