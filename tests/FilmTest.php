@@ -10,7 +10,10 @@ use GhibliQL\Data\Film;
 
 final class FilmTest extends TestCase
 {
-    public static function filmData()
+    /**
+     * @return array<array<array<string, mixed>>>
+     */
+    public static function filmData(): array
     {
         return [
             [
@@ -36,7 +39,7 @@ final class FilmTest extends TestCase
     }
 
     #[DataProvider('filmData')]
-    public function testFilm(array $data)
+    public function testFilm(array $data): void
     {
         $film = new Film($data);
 

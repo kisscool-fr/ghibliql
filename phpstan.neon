@@ -2,9 +2,10 @@ parameters:
     level: max
     paths:
         - lib
+        - public
     ignoreErrors:
         - identifier: missingType.iterableValue
     phpVersion:
-        min: 80100 # PHP 8.1.0
+        min: 80000 # PHP 8.0.0
         max: 80410 # PHP 8.4.10
     treatPhpDocTypesAsCertain: false

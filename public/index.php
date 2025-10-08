@@ -16,11 +16,11 @@ use GraphQL\Error\FormattedError;
 use GraphQL\Error\DebugFlag;
 
 // Disable default PHP error reporting - we have better one for debug mode (see bellow)
-ini_set('display_errors', 0);
+ini_set('display_errors', '0');
 
-$debug = false;
+$debug = DebugFlag::NONE;
 if (!empty($_GET['debug'])) {
-    set_error_handler(function ($severity, $message, $file, $line) use (&$phpErrors) {
+    set_error_handler(function ($severity, $message, $file, $line) {
         throw new ErrorException($message, 0, $severity, $file, $line);
     });
     $debug = DebugFlag::INCLUDE_DEBUG_MESSAGE | DebugFlag::INCLUDE_TRACE;
@@ -33,16 +33,18 @@ try {
     // Prepare context that will be available in all field resolvers (as 3rd argument):
     $appContext = new AppContext();
     $appContext->viewer = '';
-    $appContext->rootUrl = $_SERVER['REQUEST_URI'];
+    $appContext->rootUrl = $_SERVER['REQUEST_URI']; // @phpstan-ignore assign.propertyType
     $appContext->request = $_REQUEST;
 
     // Parse incoming query and variables
-    if (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+    if (
+        isset($_SERVER['CONTENT_TYPE'])
+        && is_string($_SERVER['CONTENT_TYPE'])
+        && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false
+    ) {
         $raw = file_get_contents('php://input') ?: '';
-        $data = json_decode($raw, true);
-    }
-
-    if (is_null($data)) {
+        $data = (array)json_decode($raw, true);
+    } else {
         $data = $appContext->request;
     }
 
@@ -53,18 +55,26 @@ try {
 
     $result = GraphQL::executeQuery(
         $schema,
-        $data['query'],
+        $data['query'], // @phpstan-ignore argument.type
         null,
         $appContext,
-        array_key_exists('variables', $data) ? $data['variables'] : []
+        array_key_exists('variables', $data) ? $data['variables'] : [] // @phpstan-ignore argument.type
     );
     $output = $result->toArray($debug);
     $httpStatus = 200;
 } catch (\Exception $error) {
     $httpStatus = 500;
-    $output['errors'] = [
+    $errors = [
         FormattedError::createFromException($error, $debug)
     ];
+
+    if (isset($output) && is_array($output)) {
+        $output['errors'] = $errors;
+    } else {
+        $output = [
+            'errors' => $errors
+        ];
+    }
 }
 
 header('Content-Type: application/json', true, $httpStatus);
