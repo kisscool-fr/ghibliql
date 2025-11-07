@@ -32,7 +32,7 @@
         }
     },
     "require": {
-        "php": ">=8.4, <8.5",
+        "php": ">=8.4 <8.5",
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^7.10",
         "predis/predis": "^3.2",
