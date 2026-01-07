@@ -35,26 +35,34 @@
         "php": ">=8.4 <8.5",
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^7.10",
-        "predis/predis": "^3.2",
-        "webonyx/graphql-php": "^15.25"
+        "predis/predis": "^3.3",
+        "webonyx/graphql-php": "^15.29"
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
-        "friendsofphp/php-cs-fixer": "^3.89",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+        "friendsofphp/php-cs-fixer": "^3.92",
         "pheromone/phpcs-security-audit": "^2.0",
         "phpstan/phpstan": "^2.1",
-        "phpunit/phpunit": "^12.4",
+        "phpunit/phpunit": "^12.5",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^4.0"
     },
     "scripts": {
         "check": "composer validate --check-lock --strict",
-        "lint": "php -l lib/ public/ tests/",
+        "lint": "find . -not -path './vendor/*' -type f -name '*.php' -exec php -l {} \\;",
         "standard": "./vendor/bin/phpcs --extensions=php --standard=PSR12 lib/ public/ tests/",
         "scan": "./vendor/bin/phpcs --extensions=php --standard=./vendor/pheromone/phpcs-security-audit/example_base_ruleset.xml lib/",
         "stan": "./vendor/bin/phpstan analyse --configuration=phpstan.neon",
         "style": "./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --dry-run --diff --show-progress dots",
         "style-fix": "./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --diff --show-progress dots",
-        "test": "./vendor/bin/phpunit --colors=always --display-errors"
+        "test": "./vendor/bin/phpunit --colors=always --display-errors",
+        "ci": [
+            "composer check",
+            "composer lint",
+            "composer standard",
+            "composer stan",
+            "composer style",
+            "composer test"
+        ]
     }
 }
