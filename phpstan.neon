@@ -7,5 +7,5 @@ parameters:
         - identifier: missingType.iterableValue
     phpVersion:
         min: 80000 # PHP 8.0.0
-        max: 80410 # PHP 8.4.10
+        max: 80414 # PHP 8.4.17
     treatPhpDocTypesAsCertain: false
