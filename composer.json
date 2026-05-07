@@ -35,12 +35,12 @@
         "php": ">=8.4 <8.5",
         "ext-mbstring": "*",
         "guzzlehttp/guzzle": "^7.10",
-        "predis/predis": "^3.3",
-        "webonyx/graphql-php": "^15.29"
+        "predis/predis": "^3.4",
+        "webonyx/graphql-php": "^15.32"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
-        "friendsofphp/php-cs-fixer": "^3.92",
+        "friendsofphp/php-cs-fixer": "^3.95",
         "pheromone/phpcs-security-audit": "^2.0",
         "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^12.5",
