@@ -24,7 +24,7 @@
     "config": {
         "optimize-autoloader": true,
         "platform": {
-            "php": "8.4.10"
+            "php": "8.5.7"
         },
         "sort-packages": true,
         "allow-plugins": {
@@ -32,9 +32,9 @@
         }
     },
     "require": {
-        "php": ">=8.4 <8.5",
+        "php": ">=8.5 <8.6",
         "ext-mbstring": "*",
-        "guzzlehttp/guzzle": "^7.10",
+        "guzzlehttp/guzzle": "^8.2",
         "predis/predis": "^3.3",
         "webonyx/graphql-php": "^15.29"
     },
@@ -43,7 +43,7 @@
         "friendsofphp/php-cs-fixer": "^3.92",
         "pheromone/phpcs-security-audit": "^2.0",
         "phpstan/phpstan": "^2.1",
-        "phpunit/phpunit": "^12.5",
+        "phpunit/phpunit": "^13.3",
         "roave/security-advisories": "dev-master",
         "squizlabs/php_codesniffer": "^4.0"
     },

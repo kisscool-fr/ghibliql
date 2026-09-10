@@ -1,4 +1,4 @@
-set shell := ["cmd.exe", "/c"]
+set windows-shell := ["cmd.exe", "/c"]
 set quiet
 
 COMPOSE := "docker compose"
