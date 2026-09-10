@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GhibliQL\Data;
 
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ResponseException;
 use Predis\Client as RedisClient;
 
 /**
@@ -266,7 +266,7 @@ class DataSource
     /**
      * @return array<mixed>
      */
-    private static function api(string $url, ?array $args = null): array
+    private static function api(string $url): array
     {
         if (is_null(self::$client)) {
             if (!getenv('GHIBLIAPI_URL')) {
@@ -274,36 +274,30 @@ class DataSource
                 exit;
             }
             self::$client = new HttpClient([
-                'base_uri' => getenv('GHIBLIAPI_URL'),
-                'headers' => ['Content-Type' => 'application/json']
+                'base_uri' => (string) getenv('GHIBLIAPI_URL'),
+                'headers' => ['Content-Type' => ['application/json']]
             ]);
         }
 
-        if (!is_array($args)) {
-            $args = [];
-        }
-
-        $cacheKey = hash('fnv1a64', $url . '|' . json_encode($args)); // phpcs:ignore
+        $cacheKey = hash('fnv1a64', $url);
         $data = self::$cache ? self::$cache->get($cacheKey) : '';
 
         if (empty($data)) {
             try {
-                $response = self::$client->request('GET', $url, $args);
+                $response = self::$client->request('GET', $url);
                 $data = $response->getBody()->getContents();
 
                 if (self::$cache) {
                     self::$cache->set($cacheKey, $data, 'EX', 3600);
                 }
-            } catch (RequestException $e) {
-                if ($e->hasResponse()) {
-                    error_log(
-                        sprintf(
-                            '%s %s',
-                            $e->getResponse()->getStatusCode(), // @phpstan-ignore-line
-                            $e->getResponse()->getReasonPhrase() // @phpstan-ignore-line
-                        )
-                    );
-                }
+            } catch (ResponseException $e) {
+                error_log(
+                    sprintf(
+                        '%s %s',
+                        $e->getResponse()->getStatusCode(),
+                        $e->getResponse()->getReasonPhrase()
+                    )
+                );
             }
         }
 

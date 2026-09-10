@@ -1,13 +1,19 @@
-FROM php:8.4.10-fpm-alpine
+# https://phpfpm85.webhosting-infos.hosting.ovh.net/
 
-RUN apk -U upgrade \
-    && apk add libzip-dev unzip \
-    && docker-php-ext-install zip
+FROM composer:latest AS composer
+FROM php:8.5.7-fpm-bookworm
 
-RUN curl -sS https://getcomposer.org/installer -o composer-setup.php \
-    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
-    && rm composer-setup.php
+WORKDIR /var/www/ghibliql
 
-EXPOSE 9000
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libzip-dev \
+        unzip \
+    && docker-php-ext-install zip \
+    && rm -rf /var/lib/apt/lists/* \
+    && chown -R www-data:www-data /var/www/ghibliql
+
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 CMD ["php-fpm"]
+
+EXPOSE 9000

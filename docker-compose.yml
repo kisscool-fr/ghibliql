@@ -10,7 +10,8 @@ services:
             - "./conf/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro"
             - "./conf/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro"
         depends_on:
-            - php
+            php:
+                condition: service_healthy
 
     php:
         build:
@@ -27,7 +28,14 @@ services:
             - "./conf/php.ini:/usr/local/etc/php/conf.d/php.ini:ro"
         working_dir: "/var/www/ghibliql"
         depends_on:
-            - redis
+            redis:
+                condition: service_started
+        healthcheck:
+            test: ["CMD-SHELL", "php-fpm -t 2>&1 | grep -q 'successful' || exit 1"]
+            interval: 10s
+            timeout: 3s
+            retries: 3
+            start_period: 10s
 
     redis:
         image: redis:7.4-alpine
