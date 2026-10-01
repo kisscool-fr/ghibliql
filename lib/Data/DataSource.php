@@ -279,6 +279,7 @@ class DataSource
             ]);
         }
 
+        // phpcs:ignore PHPCS_SecurityAudit.BadFunctions.CryptoFunctions.WarnCryptoFunc -- fnv1a64 is a non-cryptographic hash used solely to derive a cache key from the API URL; no sensitive/security data is involved.
         $cacheKey = hash('fnv1a64', $url);
         $data = self::$cache ? self::$cache->get($cacheKey) : '';
 
