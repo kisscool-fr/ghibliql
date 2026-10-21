@@ -1,7 +1,7 @@
 # https://phpfpm85.webhosting-infos.hosting.ovh.net/
 
 FROM composer:latest AS composer
-FROM php:8.5.7-fpm-bookworm
+FROM php:8.5-fpm-bookworm
 
 WORKDIR /var/www/ghibliql
 
